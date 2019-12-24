@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="350" height="28" tilewidth="8" tileheight="8" nextobjectid="160">
+ <tileset firstgid="1" source="tilemap.tsx"/>
+ <objectgroup name="objects">
+  <object id="18" name="player-jump" x="16" y="166" width="104" height="26"/>
+  <object id="20" gid="45" x="936" y="128" width="8" height="96"/>
+  <object id="21" name="tube-from-a" gid="51" x="1064" y="216" width="16" height="32"/>
+  <object id="22" name="zone2" gid="51" x="2520" y="32" width="16" height="32" rotation="180"/>
+  <object id="23" name="pf1" gid="47" x="0" y="200" width="224" height="8"/>
+  <object id="29" gid="110" x="124" y="76" width="8" height="8"/>
+  <object id="30" gid="110" x="132" y="76" width="8" height="8"/>
+  <object id="31" gid="110" x="140" y="72" width="8" height="8"/>
+  <object id="32" gid="110" x="148" y="72" width="8" height="8"/>
+  <object id="33" gid="110" x="156" y="68" width="8" height="8"/>
+  <object id="34" gid="110" x="164" y="68" width="8" height="8"/>
+  <object id="35" gid="111" x="180" y="68" width="16" height="16"/>
+  <object id="43" gid="47" x="2198" y="176" width="34.3944" height="8" rotation="15"/>
+  <object id="44" gid="47" x="2228" y="182" width="34.3944" height="8" rotation="45"/>
+  <object id="45" gid="16" x="64" y="192" width="8" height="8"/>
+  <object id="47" gid="16" x="88" y="192" width="8" height="8"/>
+  <object id="51" name="player-small" x="0" y="186" width="8" height="6"/>
+  <object id="52" name="player" x="8" y="178" width="8" height="14"/>
+  <object id="53" name="screen" x="36" y="64" width="240" height="144"/>
+  <object id="55" name="pf1" gid="47" x="224" y="192" width="160" height="8"/>
+  <object id="56" name="pf1" gid="47" x="400" y="200" width="128" height="8"/>
+  <object id="57" name="pf1" gid="47" x="544" y="200" width="88" height="8"/>
+  <object id="58" name="pf1" gid="47" x="632" y="192" width="40" height="16"/>
+  <object id="59" name="pf1" gid="47" x="672" y="192" width="24" height="24"/>
+  <object id="60" name="pf1" gid="47" x="696" y="200" width="32" height="8"/>
+  <object id="61" name="pf1" gid="47" x="728" y="192" width="56" height="8"/>
+  <object id="62" name="pf1" gid="47" x="784" y="200" width="248" height="8"/>
+  <object id="63" name="pf1" gid="47" x="1032" y="192" width="32" height="8"/>
+  <object id="64" name="pf1" gid="47" x="1080" y="192" width="56" height="8"/>
+  <object id="65" name="pf1" gid="47" x="1136" y="184" width="24" height="8"/>
+  <object id="66" name="pf1" gid="47" x="1160" y="176" width="24" height="8"/>
+  <object id="67" name="pf1" gid="47" x="1184" y="224" width="80" height="64"/>
+  <object id="68" name="pf1" gid="47" x="1344" y="176" width="32" height="8"/>
+  <object id="69" gid="48" x="184" y="152" width="80" height="8"/>
+  <object id="70" gid="48" x="520" y="128" width="48" height="8"/>
+  <object id="71" gid="48" x="472" y="176" width="120" height="8"/>
+  <object id="72" gid="48" x="768" y="160" width="72" height="8"/>
+  <object id="73" gid="48" x="944" y="72" width="304" height="8"/>
+  <object id="74" name="pf-12" gid="48" x="1272" y="200" width="56" height="8"/>
+  <object id="75" gid="48" x="1344" y="216" width="24" height="8"/>
+  <object id="76" name="pf1" gid="47" x="1368" y="224" width="216" height="8"/>
+  <object id="77" name="pf1" gid="47" x="1376" y="168" width="40" height="8"/>
+  <object id="78" name="pf1" gid="47" x="1488" y="168" width="64" height="8"/>
+  <object id="79" name="pf1" gid="47" x="1624" y="176" width="8" height="8"/>
+  <object id="80" name="pf1" gid="47" x="1632" y="184" width="8" height="8"/>
+  <object id="81" name="pf1" gid="47" x="1640" y="192" width="16" height="8"/>
+  <object id="82" name="pf1" gid="47" x="1656" y="200" width="24" height="8"/>
+  <object id="83" name="pf1" gid="47" x="1680" y="208" width="8" height="8"/>
+  <object id="84" name="pf1" gid="47" x="1688" y="216" width="160" height="8"/>
+  <object id="85" name="pf1" gid="47" x="1904" y="184" width="64" height="8"/>
+  <object id="86" name="pf1" gid="47" x="1968" y="208" width="56" height="8"/>
+  <object id="87" name="pf1" gid="47" x="2024" y="216" width="80" height="8"/>
+  <object id="88" name="pf1" gid="47" x="2104" y="208" width="24" height="8"/>
+  <object id="89" name="pf1" gid="47" x="2144" y="176" width="56" height="8"/>
+  <object id="90" name="pf1" gid="47" x="2256" y="208" width="224" height="8"/>
+  <object id="91" name="pf1" gid="47" x="2480" y="200" width="8" height="8"/>
+  <object id="92" name="pf1" gid="47" x="2488" y="192" width="8" height="8"/>
+  <object id="93" name="pf1" gid="47" x="2496" y="184" width="304" height="8"/>
+  <object id="94" gid="48" x="1552" y="200" width="16" height="8"/>
+  <object id="95" gid="48" x="1736" y="192" width="88" height="8"/>
+  <object id="96" gid="48" x="1784" y="176" width="88" height="8"/>
+  <object id="97" gid="48" x="2272" y="160" width="48" height="8"/>
+  <object id="98" gid="48" x="2320" y="168" width="16" height="8"/>
+  <object id="99" gid="48" x="2336" y="176" width="16" height="8"/>
+  <object id="100" gid="48" x="2432" y="176" width="16" height="8"/>
+  <object id="101" gid="48" x="2448" y="168" width="16" height="8"/>
+  <object id="102" gid="48" x="2464" y="160" width="32" height="8"/>
+  <object id="103" gid="48" x="2376" y="120" width="24" height="8"/>
+  <object id="104" gid="48" x="2352" y="184" width="80" height="8"/>
+  <object id="105" gid="48" x="2448" y="96" width="120" height="8"/>
+  <object id="106" name="pf1" gid="47" x="1568" y="168" width="56" height="8"/>
+  <object id="107" gid="48" x="1552" y="168" width="16" height="8"/>
+  <object id="108" gid="48" x="1848" y="216" width="40" height="8"/>
+  <object id="109" gid="51" x="1968" y="184" width="16" height="16"/>
+  <object id="110" gid="51" x="1984" y="200" width="16" height="24"/>
+  <object id="111" gid="51" x="1888" y="224" width="16" height="32"/>
+  <object id="112" gid="51" x="2128" y="200" width="16" height="24"/>
+  <object id="113" gid="51" x="1416" y="216" width="16" height="64"/>
+  <object id="114" gid="51" x="1472" y="176" width="16" height="24"/>
+  <object id="116" name="tube-near" gid="51" x="320" y="184" width="16" height="16"/>
+  <object id="117" gid="51" x="208" y="192" width="16" height="16">
+   <properties>
+    <property name="goto" value="tube-near"/>
+   </properties>
+  </object>
+  <object id="118" type="block" gid="12" x="2648" y="176" width="8" height="8"/>
+  <object id="119" type="block" gid="12" x="2656" y="168" width="8" height="8"/>
+  <object id="120" type="block" gid="12" x="2664" y="160" width="8" height="8"/>
+  <object id="121" type="block" gid="12" x="2672" y="152" width="8" height="8"/>
+  <object id="122" type="block" gid="12" x="2680" y="144" width="8" height="8"/>
+  <object id="123" type="block" gid="12" x="2688" y="136" width="8" height="8"/>
+  <object id="124" type="block" gid="12" x="2696" y="128" width="8" height="8"/>
+  <object id="125" type="block" gid="12" x="2704" y="120" width="8" height="8"/>
+  <object id="126" type="block" gid="12" x="2712" y="176" width="8" height="64"/>
+  <object id="127" name="b12" gid="14" x="1296" y="176" width="8" height="8"/>
+  <object id="128" name="fake" gid="48" x="856" y="184" width="16" height="8">
+   <properties>
+    <property name="moveup" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="129" gid="51" x="712" y="192" width="16" height="16">
+   <properties>
+    <property name="goto" value="map-a:default"/>
+   </properties>
+  </object>
+  <object id="130" name="tube-test" gid="51" x="32" y="200" width="16" height="24">
+   <properties>
+    <property name="goto" value="map-test:default"/>
+   </properties>
+  </object>
+  <object id="131" gid="140" x="36" y="156" width="8" height="8"/>
+  <object id="132" gid="141" x="64" y="164" width="8" height="8"/>
+  <object id="133" gid="142" x="76" y="156" width="8" height="8"/>
+  <object id="134" gid="143" x="112" y="136" width="8" height="8"/>
+  <object id="135" gid="144" x="100" y="140" width="8" height="8"/>
+  <object id="136" gid="145" x="88" y="148" width="8" height="8"/>
+  <object id="137" gid="140" x="132" y="124" width="16" height="16"/>
+  <object id="138" gid="79" x="184" y="144" width="8" height="8">
+   <properties>
+    <property name="path" value="path1"/>
+   </properties>
+  </object>
+  <object id="143" gid="79" x="96" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="144" gid="79" x="112" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="145" gid="79" x="128" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="146" gid="80" x="176" y="192" width="8" height="16">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="151" type="block" gid="12" x="64" y="192" width="64" height="8"/>
+  <object id="152" type="block" gid="12" x="72" y="184" width="48" height="8"/>
+  <object id="153" type="block" gid="12" x="80" y="176" width="32" height="8"/>
+  <object id="154" type="block" gid="12" x="88" y="168" width="16" height="8"/>
+  <object id="155" gid="109" x="8" y="192" width="8" height="8"/>
+  <object id="156" type="block" gid="12" x="-8" y="192" width="8" height="176"/>
+  <object id="157" name="entry" gid="51" x="20" y="94" width="16" height="24" rotation="-180"/>
+  <object id="158" gid="51" x="2800" y="176" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="goto" value="house:exit"/>
+   </properties>
+  </object>
+  <object id="159" type="block" gid="12" x="2784" y="160" width="8" height="160"/>
+ </objectgroup>
+ <objectgroup name="paths">
+  <object id="141" name="path2" x="48" y="192">
+   <polyline points="80,0 152,0"/>
+  </object>
+  <object id="142" name="path1" x="120" y="160">
+   <polyline points="64,-16 136,-16"/>
+  </object>
+ </objectgroup>
+</map>
