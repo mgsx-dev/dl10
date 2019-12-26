@@ -20,7 +20,7 @@
   <object id="174" name="entry" gid="51" x="32" y="8" width="16" height="16" rotation="-180"/>
   <object id="220" gid="12" x="232" y="136" width="8" height="136"/>
   <object id="221" gid="142" x="156" y="84" width="8" height="8"/>
-  <object id="222" gid="142" x="80" y="40" width="16" height="16"/>
+  <object id="222" type="super-gift" gid="142" x="80" y="40" width="16" height="16"/>
   <object id="223" gid="145" x="68" y="68" width="8" height="8"/>
   <object id="224" gid="145" x="84" y="68" width="8" height="8"/>
   <object id="225" gid="145" x="100" y="68" width="8" height="8"/>

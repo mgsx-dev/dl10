@@ -3,11 +3,14 @@ package net.mgsx.dl10.engine.model.engines;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
+import net.mgsx.dl10.GameSettings;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
 import net.mgsx.dl10.engine.model.entities.Player;
+import net.mgsx.dl10.engine.model.entities.PlayerSequences;
 import net.mgsx.gltf.scene3d.scene.Scene;
 
 public class PlatformerLevel {
@@ -38,6 +41,7 @@ public class PlatformerLevel {
 	public float screenZoom = 1;
 	public Texture bgTexture;
 	public float viewOffset = 0;
+	public Actor hud;
 	
 	public PlatformerLevel(PlatformerEngine engine) {
 		super();
@@ -68,7 +72,10 @@ public class PlatformerLevel {
 			
 			player.update(engine, delta);
 			
-			if(engine.level != this) return; // level has changed
+			if(engine.level != this){
+				player.reset();
+				return; // level has changed
+			}
 			
 			if(player.sequence.size > 0) continue;
 			
@@ -102,6 +109,25 @@ public class PlatformerLevel {
 					if(r1.overlaps(r2)){
 						if(e.life != null){
 							e.life.decrease();
+						}
+						if(e.bonus != null && !e.bonus.fake){
+							if(e.bonus.superBonus){
+								engine.bigBonus.add(e.bonus.varIndex);
+								engine.smallBonus += GameSettings.bigBonusPoints;
+							}else{
+								engine.smallBonus++;
+							}
+							if(engine.smallBonus >= GameSettings.bonusPerLife){
+								engine.smallBonus -= GameSettings.bonusPerLife;
+								if(engine.playerLife < GameSettings.playerLifeMax){
+									engine.playerLife++;
+								}else{
+									engine.playerContinues++;
+								}
+							}
+						}
+						if("end-game".equals(e.type)){
+							PlayerSequences.createGameEndSequence(engine, player);
 						}
 					}
 					continue;
@@ -183,8 +209,15 @@ public class PlatformerLevel {
 			}
 			
 			player.getBounds(r1);
+			if(!r1.overlaps(worldBounds)){
+				PlayerSequences.createDeathSequence(engine, player);
+			}
+			
+				
 			r1.getCenter(v1);
 			// v1.y = player.position.y;
+			
+			boolean hit = false;
 			
 			for(EBase c : chars){
 				
@@ -198,7 +231,12 @@ public class PlatformerLevel {
 					
 					if(Math.abs(v2.x) > .5f){
 						// side
-						player.dyn.velocity.x = v2.x > 0 ? -10 : 10;
+						if(player.canBeHit()){
+							
+							player.dyn.velocity.x = v2.x > 0 ? -10 : 10;
+						}
+						
+						hit = true;
 					}else if(v2.y < 0){
 						// feets
 						if(player.jumpKeep){
@@ -211,7 +249,10 @@ public class PlatformerLevel {
 						}
 					}else{
 						// head
-						player.dyn.velocity.x = v2.x > 0 ? -10 : 10;
+						if(player.canBeHit()){
+							player.dyn.velocity.x = v2.x > 0 ? -10 : 10;
+						}
+						hit = true;
 					}
 					
 					// XXX for now just add a force to player (bouncing out)
@@ -219,7 +260,24 @@ public class PlatformerLevel {
 				
 			}
 			
+			if(hit && player.canBeHit()){
+				
+				engine.playerLife--;
+				if(engine.playerLife <= 0){
+					
+					// TODO set dead
+					PlayerSequences.createDeathSequence(engine, player);
+					
+				}else{
+					// TODO blinking
+					player.setHit();
+					
+				}
+				
+			}
 		}
+			
+			
 		
 		
 	}

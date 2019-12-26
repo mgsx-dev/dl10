@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 
 import net.mgsx.dl10.engine.inputs.ControllerBase;
 import net.mgsx.dl10.engine.inputs.InputManager;
-import net.mgsx.dl10.engine.inputs.TriggerBase;
 import net.mgsx.dl10.engine.inputs.InputManager.Command;
+import net.mgsx.dl10.engine.inputs.TriggerBase;
 
 // TODO abstract for multi-players (P1 to P4), different tabs...
 public class InputsUI extends Table
@@ -32,6 +32,8 @@ public class InputsUI extends Table
 	public InputsUI(InputManager inputs, Skin skin) {
 		super(skin);
 		this.inputs = inputs;
+		
+		setBackground("default-rect");
 		
 		buttons.setMinCheckCount(0);
 		buttons.setMaxCheckCount(1);

@@ -1,7 +1,6 @@
 package net.mgsx.dl10.engine.model.factories;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
@@ -10,13 +9,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
+import net.mgsx.dl10.GameSettings;
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
 import net.mgsx.dl10.engine.model.components.CBonus;
@@ -124,6 +124,11 @@ public class PlatformerTilemapFactory {
 		tileFactories.put("tube", new TileFactory() {
 			@Override
 			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				
+				if(object.getProperties().get("debug", null, String.class) != null && !GameSettings.debug){
+					return;
+				}
+				
 				EBase b = new EBase();
 				b.name = (object != null ? object.getName() : null);
 				b.block = new CBlock();
@@ -177,10 +182,51 @@ public class PlatformerTilemapFactory {
 				b.position.set(x, y);
 				b.size.set(w, h);
 				
+				
+				b.bonus = new CBonus();
+				b.bonus.varIndex = Integer.parseInt(tile.getProperties().get("var", null, String.class)) - 1;
+				
+				b.bonus.superBonus = false;
+				
+				b.bonus.fake = object.getProperties().get("fake", null, String.class) != null;
+				
+				if(!b.bonus.fake) b.life = new CLife(1);
+				
+				engine.blocks.add(b);
+			}
+		});
+		tileFactories.put("super-gift", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.block.sensor = true;
+				b.position.set(x, y);
+				b.size.set(w, h);
+				
 				b.life = new CLife(1);
 				
 				b.bonus = new CBonus();
 				b.bonus.varIndex = Integer.parseInt(tile.getProperties().get("var", null, String.class)) - 1;
+				
+				b.bonus.superBonus = true;
+				
+				engine.blocks.add(b);
+			}
+		});
+		tileFactories.put("exit", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.type = "end-game";
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.block.sensor = true;
+				b.position.set(x, y);
+				b.size.set(w, h);
 				
 				engine.blocks.add(b);
 			}
@@ -244,12 +290,12 @@ public class PlatformerTilemapFactory {
 
 	private final ObjectMap<String, Array<Vector2>> paths = new ObjectMap<String, Array<Vector2>>();
 	
-	public PlatformerLevel createScene(FileHandle mapFile) {
+	public PlatformerLevel createScene(String id) {
 		
 		PlatformerLevel level = new PlatformerLevel(this.engine);
-		level.prefix = mapFile.nameWithoutExtension();
+		level.prefix = id;
 		
-		map = new TmxMapLoader().load(mapFile.path());
+		this.map = GameAssets.i.maps.get(id);
 		
 		int mapW = map.getProperties().get("width", Integer.class);
 		int mapH = map.getProperties().get("height", Integer.class);

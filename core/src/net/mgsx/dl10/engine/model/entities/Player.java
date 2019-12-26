@@ -26,6 +26,22 @@ public class Player extends EBase {
 	public boolean down;
 	
 	public final Array<CUpdatable> sequence = new Array<CUpdatable>();
+
+	private float hitTimeout;
+	
+	public void reset(){
+		hitTimeout = -1;
+		block = null;
+		gravity = 0;
+		jumpTimeout = -1;
+		jumping = false;
+		onGround = false;
+		jumpKeep = false;
+		force = 0;
+		velocityTarget.setZero();
+		dyn.lastPosition.set(position);
+		dyn.velocity.setZero();
+	}
 	
 	public void jump() {
 		
@@ -80,6 +96,8 @@ public class Player extends EBase {
 			return true;
 		}
 		
+		hitTimeout -= delta;
+		
 		// XXX input 1 -1 0
 		velocityTarget.x *= (onGround ? walkSpeed : walkSpeed) * dynScale;
 		
@@ -123,6 +141,15 @@ public class Player extends EBase {
 		dyn.velocity.y = 0;
 		gravity = -50f * dynScale;
 		jumpTimeout = -1;
+	}
+
+	public void setHit() {
+		hitTimeout = 3;
+		// TODO animate
+	}
+	
+	public boolean canBeHit(){
+		return hitTimeout <= 0;
 	}
 
 

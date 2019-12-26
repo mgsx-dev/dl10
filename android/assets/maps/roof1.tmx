@@ -18,7 +18,7 @@
   <object id="133" gid="142" x="372" y="172" width="8" height="8"/>
   <object id="134" gid="143" x="412" y="148" width="8" height="8"/>
   <object id="135" gid="144" x="700" y="132" width="8" height="8"/>
-  <object id="137" gid="140" x="1164" y="160" width="16" height="16"/>
+  <object id="137" type="super-gift" gid="140" x="1164" y="160" width="16" height="16"/>
   <object id="138" gid="79" x="472" y="192" width="8" height="8">
    <properties>
     <property name="path" value="path1"/>
@@ -44,7 +44,7 @@
   <object id="162" gid="140" x="20" y="164" width="8" height="8"/>
   <object id="163" gid="141" x="44" y="140" width="8" height="8"/>
   <object id="164" gid="143" x="20" y="116" width="8" height="8"/>
-  <object id="165" gid="145" x="16" y="92" width="16" height="16"/>
+  <object id="165" type="super-gift" gid="145" x="16" y="92" width="16" height="16"/>
   <object id="166" gid="12" x="152" y="192" width="16" height="16"/>
   <object id="167" gid="141" x="668" y="132" width="8" height="8"/>
   <object id="168" gid="141" x="684" y="132" width="8" height="8"/>
@@ -113,7 +113,7 @@
   <object id="224" gid="140" x="1428" y="156" width="8" height="8"/>
   <object id="225" gid="140" x="1444" y="156" width="8" height="8"/>
   <object id="226" gid="143" x="1580" y="172" width="8" height="8"/>
-  <object id="227" gid="141" x="1576" y="152" width="16" height="16"/>
+  <object id="227" type="super-gift" gid="141" x="1576" y="152" width="16" height="16"/>
   <object id="228" gid="79" x="1376" y="192" width="8" height="8">
    <properties>
     <property name="path" value="path4"/>
@@ -129,23 +129,26 @@
     <property name="path" value="path4"/>
    </properties>
   </object>
-  <object id="231" gid="143" x="1408" y="160" width="16" height="16"/>
+  <object id="231" type="super-gift" gid="143" x="1408" y="160" width="16" height="16"/>
   <object id="232" gid="144" x="436" y="140" width="8" height="8"/>
   <object id="233" gid="145" x="460" y="148" width="8" height="8"/>
   <object id="234" gid="12" x="240" y="192" width="16" height="8"/>
   <object id="235" gid="12" x="232" y="192" width="8" height="16"/>
   <object id="236" gid="51" x="192" y="192" width="16" height="16">
    <properties>
+    <property name="debug" value="yes"/>
     <property name="goto" value="house:entry"/>
    </properties>
   </object>
   <object id="237" gid="51" x="176" y="192" width="16" height="16">
    <properties>
+    <property name="debug" value="yes"/>
     <property name="goto" value="house:exit"/>
    </properties>
   </object>
   <object id="238" gid="51" x="208" y="192" width="16" height="16">
    <properties>
+    <property name="debug" value="yes"/>
     <property name="goto" value="cake1:entry"/>
    </properties>
   </object>
@@ -177,7 +180,7 @@
   <object id="208" gid="47" x="984" y="208" width="120" height="8"/>
   <object id="209" gid="12" x="976" y="200" width="8" height="112"/>
   <object id="210" gid="12" x="1104" y="184" width="8" height="96"/>
-  <object id="211" gid="144" x="1032" y="156" width="16" height="16"/>
+  <object id="211" type="super-gift" gid="144" x="1032" y="156" width="16" height="16"/>
   <object id="212" gid="140" x="1028" y="172" width="8" height="8"/>
   <object id="213" gid="140" x="1044" y="172" width="8" height="8"/>
   <object id="214" gid="145" x="1016" y="184" width="8" height="8"/>

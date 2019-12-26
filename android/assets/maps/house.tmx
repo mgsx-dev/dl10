@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="8" tileheight="8" nextobjectid="235">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="8" tileheight="8" nextobjectid="245">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <objectgroup name="helpers">
   <object id="173" name="screen" x="152" y="0" width="240" height="144"/>
+  <object id="236" gid="108" x="784" y="776" width="16" height="20"/>
+  <object id="244" gid="12" x="712" y="756" width="128" height="8"/>
  </objectgroup>
  <objectgroup name="objects">
   <object id="23" gid="47" x="160" y="144" width="224" height="8"/>
@@ -21,5 +23,36 @@
   <object id="232" gid="12" x="512" y="776" width="8" height="224"/>
   <object id="233" gid="47" x="520" y="784" width="432" height="8"/>
   <object id="234" gid="12" x="952" y="776" width="8" height="224"/>
+  <object id="237" gid="140" x="728" y="712" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="238" gid="141" x="768" y="712" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="239" gid="142" x="808" y="712" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="240" gid="143" x="728" y="752" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="241" gid="144" x="768" y="752" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="242" gid="145" x="808" y="752" width="32" height="32">
+   <properties>
+    <property name="fake" value="true"/>
+   </properties>
+  </object>
+  <object id="243" gid="12" x="712" y="752" width="8" height="416"/>
  </objectgroup>
 </map>

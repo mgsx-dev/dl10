@@ -23,6 +23,33 @@ eclipse.project {
 }
 
 
+
+// GAME SKIN
+
+def skinUnpackedTasks = []
+def skinUnpackedDir = "$buildDir/skins/game-skin"
+def skinSrcDir = "src/skin"
+
+fileTree(skinSrcDir) {
+    include '*.hiero'
+}.each {File inFile ->
+	def name = inFile.name.take(inFile.name.lastIndexOf('.'))
+	skinUnpackedTasks << gdxHieroExport("$skinSrcDir/$inFile.name", skinUnpackedDir)
+}
+
+skinUnpackedTasks << gdxRawCopy(skinSrcDir, skinUnpackedDir)
+
+
+def skinPackingTask = gdxAtlasPack(skinUnpackedDir, "../android/assets/skins/game-skin")
+skinPackingTask.dependsOn += skinUnpackedTasks
+
+
+task buildAssets(group: 'gdx', dependsOn: [skinPackingTask]){}
+
+
+
+
+
 /** usage example :
 
 task buildAssets(group: 'gdx'){}

@@ -17,6 +17,7 @@ import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CModel;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
+import net.mgsx.dl10.engine.model.entities.Player;
 import net.mgsx.dl10.engine.shaders.OutlineShader;
 import net.mgsx.dl10.engine.shaders.OutlineShaderProvider;
 import net.mgsx.gltf.scene3d.animation.AnimationControllerHack;
@@ -56,6 +57,22 @@ public class PlatformerRenderer {
 		// Scene globalScene = new Scene(GameAssets.i.sceneAsset.scene);
 		
 		
+		
+		
+		
+		camera = new PerspectiveCamera(60f, 1, 1);
+		
+		sceneManager.camera = camera;
+		
+		
+		dl = new DirectionalLightEx();
+		dl.set(Color.WHITE, new Vector3(0, -1, 0).nor());
+		dl.intensity = 3.0f;
+		sceneManager.environment.add(dl);
+	}
+	
+	public void initialize() {
+		
 		// create objects and cache references
 		for(Entry<String, PlatformerLevel> entry : engine.levels){
 			
@@ -93,15 +110,18 @@ public class PlatformerRenderer {
 					e.model = new CModel();
 					e.model.node = GameAssets.i.gifts.get(e.bonus.varIndex).copy();
 					e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y + e.size.y/2, 0);
+					
 					levelScene.modelInstance.nodes.add(e.model.node);
 					
-					e.life.onDead = new Runnable() {
-						@Override
-						public void run() {
-							// TODO add bonus, trig particles, and sounds...etc
-							levelScene.modelInstance.nodes.removeValue(e.model.node, true);
-						}
-					};
+					if(e.life != null){
+						e.life.onDead = new Runnable() {
+							@Override
+							public void run() {
+								// TODO add bonus, trig particles, and sounds...etc
+								levelScene.modelInstance.nodes.removeValue(e.model.node, true);
+							}
+						};
+					}
 				}
 			}
 			for(final EBase e : level.chars){
@@ -129,17 +149,6 @@ public class PlatformerRenderer {
 				};
 			}
 		}
-		
-		
-		camera = new PerspectiveCamera(60f, 1, 1);
-		
-		sceneManager.camera = camera;
-		
-		
-		dl = new DirectionalLightEx();
-		dl.set(Color.WHITE, new Vector3(0, -1, 0).nor());
-		dl.intensity = 3.0f;
-		sceneManager.environment.add(dl);
 	}
 	
 	private static ShaderProvider createColorShader(int maxBones){
@@ -168,7 +177,13 @@ public class PlatformerRenderer {
 		
 		sceneManager.getScenes().addAll(engine.level.scenes);
 		
-		for(EBase e : engine.level.players){
+		for(Player e : engine.level.players){
+			
+			if(!e.canBeHit()){
+				if((time * 5f) % 1f > 0.5f){
+					sceneManager.getScenes().removeValue(e.model.scene, true);
+				}
+			}
 			
 			if(Math.abs(e.dyn.velocity.x) > .1f){
 				animate(e.model, "run", .1f);
@@ -198,7 +213,7 @@ public class PlatformerRenderer {
 		
 		for(EBase e : engine.level.blocks){
 			if(e.bonus != null){
-				float base = e.size.x;
+				float base = e.bonus.fake ? 0 : e.size.x;
 				float t = MathUtils.sinDeg(time * 360 * 2) * .5f + .5f;
 				float s = MathUtils.lerp(.9f, 1.1f, t) * base;
 				e.model.node.scale.set(s, s, s);
@@ -270,5 +285,6 @@ public class PlatformerRenderer {
 			sceneManager.setBatch(oldBatch);
 		}
 	}
+
 
 }

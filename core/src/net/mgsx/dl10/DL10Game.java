@@ -11,7 +11,6 @@ public class DL10Game extends Game {
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 614;
 	
-	
 	@Override
 	public void create () {
 		
@@ -19,9 +18,7 @@ public class DL10Game extends Game {
 		
 		GameAssets.i = new GameAssets();
 		
-		// XXX setScreen(new GameScreen());
 		setScreen(new PlatformerTemplate());
 	}
-
 	
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="30" height="18" tilewidth="8" tileheight="8" nextobjectid="233">
+ <tileset firstgid="1" source="tilemap.tsx"/>
+ <objectgroup name="helpers">
+  <object id="173" name="screen" x="0" y="0" width="240" height="144"/>
+ </objectgroup>
+ <objectgroup name="objects">
+  <object id="23" gid="47" x="8" y="144" width="224" height="8"/>
+  <object id="157" gid="12" x="0" y="136" width="8" height="136"/>
+  <object id="159" gid="48" x="176" y="104" width="24" height="8"/>
+  <object id="160" gid="48" x="144" y="120" width="16" height="8"/>
+  <object id="220" gid="12" x="232" y="136" width="8" height="136"/>
+  <object id="228" gid="48" x="208" y="80" width="24" height="8"/>
+  <object id="229" gid="48" x="80" y="120" width="16" height="8"/>
+  <object id="230" gid="48" x="8" y="80" width="24" height="8"/>
+  <object id="231" gid="48" x="40" y="104" width="24" height="8"/>
+  <object id="232" gid="109" x="116" y="136" width="8" height="8"/>
+ </objectgroup>
+</map>

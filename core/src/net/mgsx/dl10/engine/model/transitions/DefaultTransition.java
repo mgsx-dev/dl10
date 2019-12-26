@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import net.mgsx.dl10.GameSettings;
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
 import net.mgsx.dl10.engine.model.engines.Transition;
@@ -16,16 +18,16 @@ public class DefaultTransition implements Transition {
 	private float time = 0;
 	private boolean swap = false;
 	
-	public static Texture texture;
 	public boolean reverse = false;
 	public float delayRate = 1;
 	public float speed = 1;
 	public Interpolation interpolation = Interpolation.bounceOut;
+	private Texture texture;
 	
 	public DefaultTransition(PlatformerLevel nextLevel) {
 		super();
 		this.nextLevel = nextLevel;
-		if(texture == null) texture = new Texture("textures/bg.png"); // XXX asset
+		texture = GameAssets.i.transitionTexture;
 	}
 
 	@Override
@@ -36,13 +38,13 @@ public class DefaultTransition implements Transition {
 			engine.transitions.removeIndex(0);
 		}else if(!swap && time > 1){
 			swap = true;
-			if(nextLevel != null) engine.level = nextLevel;
+			swap(engine);
 		}
 	}
 
 	@Override
 	public void draw(Batch batch, Viewport viewport) {
-		if(true) return; // XXX
+		if(!GameSettings.transitionsEnabled) return;
 		if(reverse){
 			float t = MathUtils.clamp(time - delayRate - 1, 0, 1);
 			// out
@@ -52,6 +54,10 @@ public class DefaultTransition implements Transition {
 			// in
 			batch.draw(texture, 0, (1 - interpolation.apply(t)) * viewport.getWorldHeight(), viewport.getWorldWidth(), viewport.getWorldWidth() / (float)texture.getWidth() * (float)texture.getHeight());
 		}
+	}
+	
+	protected void swap(PlatformerEngine engine){
+		if(nextLevel != null) engine.level = nextLevel;
 	}
 
 

@@ -132,3 +132,5 @@ Thumbs.db
 /ios-moe/xcode/native/
 
 *.blend1
+
+/assets/build/

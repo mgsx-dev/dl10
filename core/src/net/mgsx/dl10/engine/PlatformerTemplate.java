@@ -4,20 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import net.mgsx.dl10.DL10Game;
+import net.mgsx.dl10.GameSettings;
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
-import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
 import net.mgsx.dl10.engine.model.entities.Player;
-import net.mgsx.dl10.engine.model.factories.PlatformerTilemapFactory;
 import net.mgsx.dl10.engine.model.inputs.PlatformerInputs;
 import net.mgsx.dl10.engine.model.renderer.PlatformerDebugRenderer;
 import net.mgsx.dl10.engine.model.renderer.PlatformerRenderer;
@@ -30,7 +30,6 @@ public class PlatformerTemplate extends ScreenAdapter
 	private PlatformerDebugRenderer debugRenderer;
 	private PlatformerEngine engine;
 	private Stage stage;
-	private Skin skin;
 	private PlatformerInputs inputs;
 	private Preferences prefs;
 	private final Vector2 worldPositionClamped = new Vector2();
@@ -39,55 +38,29 @@ public class PlatformerTemplate extends ScreenAdapter
 	public PlatformerTemplate() {
 		
 		prefs = Gdx.app.getPreferences("DL10");
-		
-		engine = new PlatformerEngine();
-		
 		inputs = new PlatformerInputs(prefs);
 		
-		PlatformerTilemapFactory f = new PlatformerTilemapFactory(engine);
+		engine = new PlatformerEngine(inputs);
+		engine.renderer = renderer = new PlatformerRenderer(engine);
 		
-		/*
-		engine.levels.put("map", f.createScene(Gdx.files.internal("maps/map.tmx")));
-		engine.levels.put("map-a", f.createScene(Gdx.files.internal("maps/map-a.tmx")));
-		engine.levels.put("map-test", f.createScene(Gdx.files.internal("maps/map-test.tmx")));
-		engine.level = engine.levels.get("map");
-		*/
 		
-		engine.levels.put("roof1", f.createScene(Gdx.files.internal("maps/roof1.tmx")));
-		engine.levels.put("roof2", f.createScene(Gdx.files.internal("maps/roof2.tmx")));
-		engine.levels.put("house", f.createScene(Gdx.files.internal("maps/house.tmx")));
-		engine.levels.put("cake1", f.createScene(Gdx.files.internal("maps/cake1.tmx")));
-		engine.levels.put("cake2", f.createScene(Gdx.files.internal("maps/cake2.tmx")));
-		engine.levels.put("cake3", f.createScene(Gdx.files.internal("maps/cake3.tmx")));
+		engine.start();
 		
-		// configure
-		PlatformerLevel house = engine.levels.get("house");
-		house.screenClamp = false;
-		house.screenZoom = 4;
-		house.viewOffset = 4;
-		
-		PlatformerLevel roof1 = engine.levels.get("roof1");
-		roof1.bgTexture = new Texture("textures/bg-roof.png");
-		roof1.viewOffset = -2;
-		
-		engine.level = engine.levels.get("roof1");
-
-		// XXX
-		// engine.level = engine.levels.get("house");
-		
+		// Game viewport will be updated later
+		viewport = new FitViewport(DL10Game.WIDTH, DL10Game.HEIGHT);
 		
 		// HUD
-		stage = new Stage();
-		skin = new Skin(Gdx.files.internal("skins/game-skin.json"));
+		stage = new Stage(new FitViewport(DL10Game.WIDTH, DL10Game.HEIGHT));
 		Gdx.input.setInputProcessor(stage);
 		
 		// rendering
-		viewport = new FitViewport(engine.level.screenBounds.width, engine.level.screenBounds.height);
 		debugRenderer = new PlatformerDebugRenderer(engine);
 		
-		renderer = new PlatformerRenderer(engine);
-		
 		// TODO intro screen engine.transitions.add(new DefaultTransition(null));
+	}
+	
+	public boolean isOver(){
+		return engine.playerContinues <= 0;
 	}
 	
 	@Override
@@ -100,10 +73,17 @@ public class PlatformerTemplate extends ScreenAdapter
 	@Override
 	public void render(float delta) {
 		
+		if(engine.level.hud != null && !stage.getRoot().hasChildren() || engine.level.hud != stage.getRoot().getChild(0)){
+			stage.getRoot().clearChildren();
+			if(engine.level.hud != null){
+				stage.addActor(engine.level.hud);
+			}
+		}
+		
 		stage.act();
 		
-		if(Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
-			inputs.openSettings(stage, skin);
+		if(GameSettings.debug && Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
+			inputs.openSettings(stage, GameAssets.i.skin);
 		}
 		
 		// input
@@ -163,12 +143,16 @@ public class PlatformerTemplate extends ScreenAdapter
 		
 		renderer.render(viewport);
 		
-		debugRenderer.render(viewport);
+		if(GameSettings.debug){
+			debugRenderer.render(viewport);
+		}
 		
-		engine.render(viewport);
 		
 		stage.getViewport().apply();
 		stage.draw();
+		stage.getBatch().setColor(Color.WHITE);
+		
+		engine.render(stage.getViewport());
 	}
 
 }
