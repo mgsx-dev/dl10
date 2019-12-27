@@ -13,7 +13,7 @@ default
   index: -1
 default-rect
   rotate: false
-  xy: 98, 158
+  xy: 564, 620
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -22,7 +22,7 @@ default-rect
   index: -1
 default-round
   rotate: false
-  xy: 612, 672
+  xy: 50, 54
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -31,7 +31,7 @@ default-round
   index: -1
 default-round-disabled
   rotate: false
-  xy: 516, 568
+  xy: 612, 672
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -40,7 +40,7 @@ default-round-disabled
   index: -1
 default-round-down
   rotate: false
-  xy: 564, 620
+  xy: 2, 2
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -49,7 +49,7 @@ default-round-down
   index: -1
 default-scroll
   rotate: false
-  xy: 2, 2
+  xy: 98, 106
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -58,7 +58,7 @@ default-scroll
   index: -1
 default-select
   rotate: false
-  xy: 98, 140
+  xy: 516, 516
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -67,7 +67,7 @@ default-select
   index: -1
 default-select-selection
   rotate: false
-  xy: 50, 54
+  xy: 143, 158
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -77,6 +77,13 @@ default-select-selection
 gift-neutral
   rotate: false
   xy: 2, 20
+  size: 46, 50
+  orig: 46, 50
+  offset: 0, 0
+  index: -1
+gift-outline
+  rotate: false
+  xy: 50, 72
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
@@ -125,14 +132,21 @@ gift6
   index: -1
 santa
   rotate: false
-  xy: 50, 72
+  xy: 98, 124
+  size: 43, 50
+  orig: 43, 50
+  offset: 0, 0
+  index: -1
+santa-outline
+  rotate: false
+  xy: 516, 534
   size: 43, 50
   orig: 43, 50
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 114, 171
+  xy: 564, 615
   size: 3, 3
   orig: 3, 3
   offset: 0, 0

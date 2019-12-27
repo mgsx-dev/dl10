@@ -4,4 +4,5 @@ public class CBonus {
 	public int varIndex;
 	public boolean superBonus;
 	public boolean fake;
+	public boolean life;
 }

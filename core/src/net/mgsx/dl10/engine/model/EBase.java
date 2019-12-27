@@ -33,6 +33,8 @@ public class EBase {
 	public CModel model;
 	public CBonus bonus;
 	public CLogic logic;
+	public float rotation;
+	public int align;
 	
 	/**
 	 * 

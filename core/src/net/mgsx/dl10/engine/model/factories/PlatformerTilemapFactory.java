@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
@@ -25,6 +26,9 @@ import net.mgsx.dl10.engine.model.components.CLife;
 import net.mgsx.dl10.engine.model.components.CPath;
 import net.mgsx.dl10.engine.model.components.interact.TubeInteraction;
 import net.mgsx.dl10.engine.model.components.logics.MobLogicBase;
+import net.mgsx.dl10.engine.model.components.logics.MobLogicCrusher;
+import net.mgsx.dl10.engine.model.components.logics.MobLogicJumping;
+import net.mgsx.dl10.engine.model.components.logics.MobLogicRolling;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
 import net.mgsx.dl10.engine.model.entities.Player;
@@ -63,9 +67,8 @@ public class PlatformerTilemapFactory {
 				b.name = (object != null ? object.getName() : null);
 				b.block = new CBlock();
 				b.block.normals = CBlock.TOP;
-				float d = .1f;
-				b.position.set(x, y+1-d);
-				b.size.set(w, d);
+				b.position.set(x, y);
+				b.size.set(w, h);
 				
 				if(object != null){
 					Float moveup = object.getProperties().get("moveup", null, Float.class);
@@ -74,8 +77,11 @@ public class PlatformerTilemapFactory {
 						b.path = new CPath();
 						b.path.points.add(b.position.cpy());
 						b.path.points.add(b.position.cpy().add(0, moveup));
-						b.path.speed = 1;
+						b.path.speed = 3;
 						b.path.delay = 1;
+						
+						// XXX prevent bad collisions
+						b.block.normals = CBlock.ALL;
 					}
 				}
 				
@@ -195,6 +201,31 @@ public class PlatformerTilemapFactory {
 				engine.blocks.add(b);
 			}
 		});
+		tileFactories.put("life", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.block.sensor = true;
+				b.position.set(x, y);
+				b.size.set(w, h);
+				
+				
+				b.bonus = new CBonus();
+				
+				b.bonus.superBonus = false;
+				
+				b.bonus.life = true;
+				
+				b.bonus.fake = object.getProperties().get("fake", null, String.class) != null;
+				
+				if(!b.bonus.fake) b.life = new CLife(1);
+				
+				engine.blocks.add(b);
+			}
+		});
 		tileFactories.put("super-gift", new TileFactory() {
 			@Override
 			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
@@ -281,6 +312,82 @@ public class PlatformerTilemapFactory {
 					b.path.points.addAll(path);
 					b.path.setOffset(b.position);
 					b.path.speed = 1;
+				}
+				
+				engine.chars.add(b);
+			}
+		});
+		tileFactories.put("mob3", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.position.set(x, y);
+				b.size.set(w, h);
+				
+				b.type = "mob3";
+						
+				b.logic = new MobLogicCrusher(b);
+				
+				engine.chars.add(b);
+			}
+		});
+		tileFactories.put("mob4", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.position.set(x, y);
+				b.size.set(w, h);
+				
+				b.type = "mob4";
+						
+				b.life = new CLife(2);
+				
+				b.logic = new MobLogicBase();
+				
+				b.align = Align.center;
+				
+				String pathID = object.getProperties().get("path", null, String.class);
+				if(pathID != null){
+					Array<Vector2> path = paths.get(pathID);
+					CPath cpath = new CPath();
+					cpath.points.addAll(path);
+					cpath.setOffset(b.position);
+					cpath.speed = 1;
+					b.logic = new MobLogicRolling(cpath);
+				}
+				
+				engine.chars.add(b);
+			}
+		});
+		tileFactories.put("mob5", new TileFactory() {
+			@Override
+			public void create(PlatformerLevel engine, float x, float y, float w, float h, TiledMapTile tile, MapObject object) {
+				final EBase b = new EBase();
+				b.name = (object != null ? object.getName() : null);
+				b.block = new CBlock();
+				b.block.normals = CBlock.ALL;
+				b.position.set(x, y);
+				b.size.set(w, h);
+				
+				b.type = "mob5";
+						
+				b.life = new CLife(1);
+				
+				
+				String pathID = object.getProperties().get("path", null, String.class);
+				if(pathID != null){
+					Array<Vector2> path = paths.get(pathID);
+					CPath cpath = new CPath();
+					cpath.points.addAll(path);
+					cpath.setOffset(b.position);
+					cpath.speed = 1;
+					b.logic = new MobLogicJumping(cpath);
 				}
 				
 				engine.chars.add(b);
@@ -410,9 +517,10 @@ public class PlatformerTilemapFactory {
 		
 		level.worldPosition.set(player.position);
 		
+		/*
 		// XXX some user defined logic : 
 		final EBase b12 = level.findEntity("b12");
-		final EBase pf12 = level.findEntity("pf-12");
+		final EBase pf12 = level.findEntity("pf12");
 		if(b12 != null){
 			b12.life.onDead = new Runnable(){
 				@Override
@@ -420,12 +528,13 @@ public class PlatformerTilemapFactory {
 					pf12.dyn = new CDynamic();
 					pf12.path = new CPath();
 					pf12.path.points.add(pf12.position.cpy());
-					pf12.path.points.add(pf12.position.cpy().add(0, 2));
+					pf12.path.points.add(pf12.position.cpy().add(0, 10));
 					pf12.path.speed = 1;
 					pf12.path.delay = 1;
 				}
 			};
 		}
+		*/
 		
 		return level;
 	}

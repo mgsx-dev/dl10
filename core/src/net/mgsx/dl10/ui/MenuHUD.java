@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 
 import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
@@ -16,13 +17,22 @@ public class MenuHUD extends Table {
 		super(GameAssets.i.skin);
 		setFillParent(true);
 
-		add(new Label("Santa and the giant cake", getSkin(), "title")).row();
+		add(new Label("SANTA", getSkin(), "title")).padTop(10).getActor().setAlignment(Align.center);;
+		row();
+		Label a = add(new Label("and\nthe giant cake", getSkin(), "title")).padTop(10).getActor();
+		a.setAlignment(Align.center);
+		a.setFontScale(.5f);
+		row();
 		
-		TextButton btPlay = new TextButton("Play", getSkin());
-		add(btPlay).row();
+		add().padTop(10).row();
+		
+		TextButton btPlay = new TextButton("New Game", getSkin());
+		add(btPlay).padBottom(10).row();
 		
 		TextButton btSettings = new TextButton("Controller settings", getSkin());
 		add(btSettings).row();
+		
+		add().expand(); // force top
 		
 		btPlay.addListener(new ChangeListener() {
 			

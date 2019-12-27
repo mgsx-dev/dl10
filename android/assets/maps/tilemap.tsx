@@ -86,6 +86,11 @@
    <property name="type" value="floor-half"/>
   </properties>
  </tile>
+ <tile id="48">
+  <properties>
+   <property name="type" value="floor-half"/>
+  </properties>
+ </tile>
  <tile id="50">
   <properties>
    <property name="type" value="tube"/>
@@ -128,6 +133,21 @@
    <property name="type" value="mob2"/>
   </properties>
  </tile>
+ <tile id="80">
+  <properties>
+   <property name="type" value="mob3"/>
+  </properties>
+ </tile>
+ <tile id="81">
+  <properties>
+   <property name="type" value="mob4"/>
+  </properties>
+ </tile>
+ <tile id="82">
+  <properties>
+   <property name="type" value="mob5"/>
+  </properties>
+ </tile>
  <tile id="101">
   <properties>
    <property name="type" value="mob-1"/>
@@ -151,6 +171,11 @@
  <tile id="110">
   <properties>
    <property name="type" value="super-coin"/>
+  </properties>
+ </tile>
+ <tile id="111">
+  <properties>
+   <property name="type" value="life"/>
   </properties>
  </tile>
  <tile id="139">

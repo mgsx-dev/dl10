@@ -27,6 +27,8 @@ public class GameAssets {
 
 	public Texture transitionTexture;
 
+	public Texture bgcake;
+
 	public GameAssets() {
 		
 		sceneAsset = new GLTFLoader().load(Gdx.files.internal("models/main.gltf"), true);
@@ -49,6 +51,8 @@ public class GameAssets {
 		bgRoof = new Texture("textures/bg-roof.png");
 		
 		transitionTexture = new Texture("textures/bg.png");
+		
+		bgcake = new Texture("textures/bg-cake.png");
 		
 		skin = new Skin(Gdx.files.internal("skins/game-skin.json"));
 	}

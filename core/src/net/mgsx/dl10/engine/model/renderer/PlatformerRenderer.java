@@ -5,13 +5,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.model.Animation;
+import com.badlogic.gdx.graphics.g3d.model.Node;
+import com.badlogic.gdx.graphics.g3d.model.NodePart;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import net.mgsx.dl10.GameSettings;
 import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CModel;
@@ -23,6 +28,8 @@ import net.mgsx.dl10.engine.shaders.OutlineShaderProvider;
 import net.mgsx.gltf.scene3d.animation.AnimationControllerHack;
 import net.mgsx.gltf.scene3d.lights.DirectionalLightEx;
 import net.mgsx.gltf.scene3d.model.ModelInstanceHack;
+import net.mgsx.gltf.scene3d.model.NodePartPlus;
+import net.mgsx.gltf.scene3d.model.NodePlus;
 import net.mgsx.gltf.scene3d.scene.Scene;
 import net.mgsx.gltf.scene3d.scene.SceneManager;
 import net.mgsx.gltf.scene3d.scene.SceneRenderableSorter;
@@ -43,6 +50,8 @@ public class PlatformerRenderer {
 	private DirectionalLightEx dl;
 
 	private float time;
+	
+	private final Array<NodePlus> weightNodes = new Array<NodePlus>();
 
 	public PlatformerRenderer(PlatformerEngine engine) {
 		this.engine = engine;
@@ -73,6 +82,8 @@ public class PlatformerRenderer {
 	
 	public void initialize() {
 		
+		weightNodes.clear();
+		
 		// create objects and cache references
 		for(Entry<String, PlatformerLevel> entry : engine.levels){
 			
@@ -80,16 +91,7 @@ public class PlatformerRenderer {
 			
 			final Scene levelScene = new Scene(new ModelInstanceHack(GameAssets.i.sceneAsset.scene.model, level.prefix), true);
 			
-			/*
-			for(int i=0 ; i<levelScene.modelInstance.nodes.size ; ){
-				Node node = levelScene.modelInstance.nodes.get(i);
-				if(!node.id.startsWith(level.prefix)){
-					levelScene.modelInstance.nodes.removeIndex(i);
-				}else{
-					i++;
-				}
-			}
-			*/
+			collect(levelScene.modelInstance.nodes);
 			
 			level.scenes.add(levelScene);
 			
@@ -108,7 +110,13 @@ public class PlatformerRenderer {
 			for(final EBase e : level.blocks){
 				if(e.bonus != null){
 					e.model = new CModel();
-					e.model.node = GameAssets.i.gifts.get(e.bonus.varIndex).copy();
+					
+					if(e.bonus.life){
+						e.model.node = GameAssets.i.sceneAsset.scene.model.getNode("life").copy();
+					}else{
+						e.model.node = GameAssets.i.gifts.get(e.bonus.varIndex).copy();
+					}
+					
 					e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y + e.size.y/2, 0);
 					
 					levelScene.modelInstance.nodes.add(e.model.node);
@@ -122,6 +130,13 @@ public class PlatformerRenderer {
 							}
 						};
 					}
+				}
+				else if(e.path != null){
+					e.model = new CModel();
+					int var = MathUtils.round(e.size.x);
+					e.model = new CModel();
+					e.model.node = GameAssets.i.sceneAsset.scene.model.getNode("platform-" + var).copy();
+					levelScene.modelInstance.nodes.add(e.model.node);
 				}
 			}
 			for(final EBase e : level.chars){
@@ -139,18 +154,31 @@ public class PlatformerRenderer {
 				
 				animate(e.model, modelName + "Walk", 0);
 				
-				e.life.onDead = new Runnable() {
-					@Override
-					public void run() {
-						// TODO add bonus, trig particles, and sounds...etc
-						// levelScene.modelInstance.nodes.removeValue(e.model.node, true);
-						level.scenes.removeValue(e.model.scene, true);
-					}
-				};
+				if(e.life != null){
+					e.life.onDead = new Runnable() {
+						@Override
+						public void run() {
+							// TODO add bonus, trig particles, and sounds...etc
+							// levelScene.modelInstance.nodes.removeValue(e.model.node, true);
+							level.scenes.removeValue(e.model.scene, true);
+						}
+					};
+				}
 			}
 		}
 	}
 	
+	private void collect(Iterable<Node> nodes) {
+		for(Node node : nodes){
+			if(node instanceof NodePlus){
+				if(((NodePlus) node).weights != null){
+					weightNodes.add((NodePlus) node);
+				}
+			}
+			collect(node.getChildren());
+		}
+	}
+
 	private static ShaderProvider createColorShader(int maxBones){
 		PBRShaderConfig config = PBRShaderProvider.defaultConfig();
 		config.vertexShader = Gdx.files.classpath("net/mgsx/dl10/engine/shaders/gltf-ceil-shading.vs.glsl").readString();
@@ -171,6 +199,16 @@ public class PlatformerRenderer {
 	public void update(float delta){
 		
 		time += delta;
+		
+		for(int j=0 ; j<weightNodes.size ; j++){
+			NodePlus node = weightNodes.get(j);
+			for(int i=0 ; i<node.weights.count ; i++){
+				float v = MathUtils.sin(((time  + (i + j) / 1f) * 1 * (i * 0.34f + 1f) ) % MathUtils.PI2) * .5f + .5f;
+				for(NodePart part : node.parts){
+					((NodePartPlus) part).morphTargets.values[i] = v;
+				}
+			}
+		}
 		
 		// TODO only add visible nodes
 		sceneManager.getScenes().clear();
@@ -221,15 +259,28 @@ public class PlatformerRenderer {
 				float pitch = MathUtils.lerp(0, 45, t2);
 				e.model.node.rotation.set(Vector3.X, pitch).mul(new Quaternion(Vector3.Y, time * 90));
 			}
+			if(e.path != null){
+				e.model.node.translation.set(e.position.x, e.position.y + e.size.y, 0);
+			}
 		}
 		
 		for(EBase e : engine.level.chars){
-			e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y, 0);
-			// e.model.anim.update(delta);
 			
-			float fakeDirectionAngle = 45;
+			if(e.align == Align.center){
+				e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y + e.size.y/2, 0);
+				e.model.node.rotation.set(Vector3.Z, e.rotation);
+			}else{
+				
+				e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y, 0);
+				// e.model.anim.update(delta);
+				
+				float fakeDirectionAngle = 45;
+				
+				if(e.path != null){
+					e.model.node.rotation.set(Vector3.Y, e.path.isReverse() ? -fakeDirectionAngle : fakeDirectionAngle);
+				}
+			}
 			
-			e.model.node.rotation.set(Vector3.Y, e.path.isReverse() ? -fakeDirectionAngle : fakeDirectionAngle);
 		}
 		
 		sceneManager.update(delta);
@@ -251,23 +302,61 @@ public class PlatformerRenderer {
 		return true;
 	}
 
+	public static interface CameraAnim {
+		public void updateCamera(PlatformerEngine engine, PerspectiveCamera camera, Viewport viewport);
+	}
+	
+	private static CameraAnim defaultCameraAnim = new CameraAnim() {
+		
+		public float angleAccum;
+		
+		@Override
+		public void updateCamera(PlatformerEngine engine, PerspectiveCamera camera, Viewport viewport) {
+			camera.fieldOfView = 40;
+			float distance = (viewport.getCamera().viewportHeight / 2) / (float)Math.tan(camera.fieldOfView * MathUtils.degreesToRadians / 2);
+			camera.position.set(viewport.getCamera().position.x , viewport.getCamera().position.y, distance);
+			camera.direction.set(0, 0, -1); //.rotate(Vector3.Y, delta * 90);
+			
+			float angleTar = (engine.level.players.first().position.x - engine.level.worldPosition.x) * .5f ;
+			
+			angleAccum = MathUtils.lerp(angleAccum, angleTar, Gdx.graphics.getDeltaTime() * 1f);
+			
+			if(GameSettings.steadyCamDebug){
+				camera.direction.set(0, 0, -1);
+			}else{
+				/*
+				float angleTarY = (engine.level.players.first().position.y - engine.level.worldPosition.y) * .5f ;
+				float angleTarX = (engine.level.players.first().position.x - engine.level.worldPosition.x) * .5f ;
+
+				camera.direction.set(angleTarX * 0.01f, angleTarY  * .03f, -1);
+				*/
+				camera.direction.set(MathUtils.clamp(angleAccum, -1, 1) * .1f, 0, -1);
+			}
+			
+			camera.up.set(Vector3.Y);
+			
+			camera.viewportWidth = viewport.getCamera().viewportWidth;
+			camera.viewportHeight = viewport.getCamera().viewportHeight;
+		}
+	};
+	
 	public void render(Viewport viewport) {
 		
 		sceneManager.camera.far = 200;
 		sceneManager.camera.update();
 		
 		// dependency angle / distance
-		camera.fieldOfView = 40;
-		float distance = (viewport.getCamera().viewportHeight / 2) / (float)Math.tan(camera.fieldOfView * MathUtils.degreesToRadians / 2);
-		camera.position.set(viewport.getCamera().position.x , viewport.getCamera().position.y, distance);
-		camera.direction.set(0, 0, -1); //.rotate(Vector3.Y, delta * 90);
-		camera.up.set(Vector3.Y);
+		if(engine.level.cameraAnim != null){
+			engine.level.cameraAnim.updateCamera(engine, camera, viewport);
+		}else{
+			defaultCameraAnim.updateCamera(engine, camera, viewport);
+		}
 		
-		camera.viewportWidth = viewport.getCamera().viewportWidth;
-		camera.viewportHeight = viewport.getCamera().viewportHeight;
+		
 		camera.update();
 		
 		dl.intensity = 1f;
+		dl.direction.set(-1f,-1f,-2).nor();
 		
 		sceneManager.render();
 		

@@ -74,6 +74,9 @@ public class TubeInteraction implements CInteraction
 				player.sequence.add(new CUpdatable() {
 					@Override
 					public boolean update(EBase e, float delta) {
+						if(targetLevel != engine.level){
+							targetPlayer.position.set(dstB);
+						}
 						targetLevel.worldPosition.set(e2.position.x + e2.size.x/2, e2.position.y + e2.size.y - 2);
 						if(engine.level != targetLevel) engine.transitions.add(new DefaultTransition(targetLevel));
 						return false;

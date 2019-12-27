@@ -11,6 +11,7 @@ import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
 import net.mgsx.dl10.engine.model.entities.Player;
 import net.mgsx.dl10.engine.model.entities.PlayerSequences;
+import net.mgsx.dl10.engine.model.renderer.PlatformerRenderer.CameraAnim;
 import net.mgsx.gltf.scene3d.scene.Scene;
 
 public class PlatformerLevel {
@@ -42,6 +43,7 @@ public class PlatformerLevel {
 	public Texture bgTexture;
 	public float viewOffset = 0;
 	public Actor hud;
+	public CameraAnim cameraAnim;
 	
 	public PlatformerLevel(PlatformerEngine engine) {
 		super();
@@ -111,7 +113,16 @@ public class PlatformerLevel {
 							e.life.decrease();
 						}
 						if(e.bonus != null && !e.bonus.fake){
-							if(e.bonus.superBonus){
+							if(e.bonus.life){
+								if(engine.playerLife < GameSettings.playerLifeMax){
+									engine.playerLife++;
+								}else{
+									if(engine.playerContinues < GameSettings.playerContinues){
+										engine.playerContinues++;
+									}
+								}
+							}
+							else if(e.bonus.superBonus){
 								engine.bigBonus.add(e.bonus.varIndex);
 								engine.smallBonus += GameSettings.bigBonusPoints;
 							}else{
@@ -122,7 +133,9 @@ public class PlatformerLevel {
 								if(engine.playerLife < GameSettings.playerLifeMax){
 									engine.playerLife++;
 								}else{
-									engine.playerContinues++;
+									if(engine.playerContinues < GameSettings.playerContinues){
+										engine.playerContinues++;
+									}
 								}
 							}
 						}
@@ -210,7 +223,9 @@ public class PlatformerLevel {
 			
 			player.getBounds(r1);
 			if(!r1.overlaps(worldBounds)){
-				PlayerSequences.createDeathSequence(engine, player);
+				if(player.position.y < 0){
+					PlayerSequences.createDeathSequence(engine, player);
+				}
 			}
 			
 				

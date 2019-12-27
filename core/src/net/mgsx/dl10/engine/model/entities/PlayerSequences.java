@@ -73,7 +73,7 @@ public class PlayerSequences {
 				if(time < 0){
 					time = 1;
 					
-					if(engine.bigBonus.contains(count) || true){ /// XXX DEBUG true
+					if(engine.bigBonus.contains(count)){ // || true debug XXX
 						
 						for(EBase b : engine.level.blocks){
 							if(b.bonus != null && b.bonus.fake && b.bonus.varIndex == count){

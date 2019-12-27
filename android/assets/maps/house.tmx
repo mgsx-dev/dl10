@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="8" tileheight="8" nextobjectid="245">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="8" tileheight="8" nextobjectid="253">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <objectgroup name="helpers">
   <object id="173" name="screen" x="152" y="0" width="240" height="144"/>
@@ -54,5 +54,13 @@
    </properties>
   </object>
   <object id="243" gid="12" x="712" y="752" width="8" height="416"/>
+  <object id="245" gid="140" x="228" y="124" width="8" height="8"/>
+  <object id="246" gid="140" x="228" y="108" width="8" height="8"/>
+  <object id="247" gid="140" x="244" y="108" width="8" height="8"/>
+  <object id="248" gid="140" x="244" y="124" width="8" height="8"/>
+  <object id="249" gid="141" x="308" y="108" width="8" height="8"/>
+  <object id="250" gid="141" x="308" y="124" width="8" height="8"/>
+  <object id="251" gid="141" x="292" y="108" width="8" height="8"/>
+  <object id="252" gid="141" x="292" y="124" width="8" height="8"/>
  </objectgroup>
 </map>

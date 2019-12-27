@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-down" width="350" height="28" tilewidth="8" tileheight="8" nextobjectid="239">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="350" height="28" tilewidth="8" tileheight="8" nextobjectid="304">
  <tileset firstgid="1" source="tilemap.tsx"/>
- <objectgroup name="helpers">
+ <objectgroup name="helpers" visible="0">
   <object id="173" name="screen" x="164" y="64" width="240" height="144"/>
  </objectgroup>
  <objectgroup name="objects">
@@ -13,12 +13,11 @@
     <property name="goto" value="roof2:entry"/>
    </properties>
   </object>
-  <object id="131" gid="140" x="388" y="164" width="8" height="8"/>
-  <object id="132" gid="141" x="356" y="180" width="8" height="8"/>
-  <object id="133" gid="142" x="372" y="172" width="8" height="8"/>
+  <object id="131" gid="140" x="356" y="172" width="8" height="8"/>
+  <object id="132" gid="141" x="372" y="164" width="8" height="8"/>
+  <object id="133" gid="142" x="392" y="156" width="8" height="8"/>
   <object id="134" gid="143" x="412" y="148" width="8" height="8"/>
   <object id="135" gid="144" x="700" y="132" width="8" height="8"/>
-  <object id="137" type="super-gift" gid="140" x="1164" y="160" width="16" height="16"/>
   <object id="138" gid="79" x="472" y="192" width="8" height="8">
    <properties>
     <property name="path" value="path1"/>
@@ -44,7 +43,6 @@
   <object id="162" gid="140" x="20" y="164" width="8" height="8"/>
   <object id="163" gid="141" x="44" y="140" width="8" height="8"/>
   <object id="164" gid="143" x="20" y="116" width="8" height="8"/>
-  <object id="165" type="super-gift" gid="145" x="16" y="92" width="16" height="16"/>
   <object id="166" gid="12" x="152" y="192" width="16" height="16"/>
   <object id="167" gid="141" x="668" y="132" width="8" height="8"/>
   <object id="168" gid="141" x="684" y="132" width="8" height="8"/>
@@ -58,9 +56,9 @@
   <object id="179" gid="47" x="936" y="88" width="208" height="8"/>
   <object id="180" gid="12" x="1144" y="224" width="8" height="144"/>
   <object id="181" gid="12" x="1192" y="224" width="8" height="32"/>
-  <object id="182" gid="48" x="1160" y="208" width="24" height="8"/>
-  <object id="183" gid="47" x="1200" y="200" width="408" height="8"/>
-  <object id="184" gid="12" x="1608" y="224" width="8" height="224"/>
+  <object id="182" gid="48" x="1168" y="208" width="8" height="8"/>
+  <object id="183" gid="47" x="1200" y="200" width="512" height="8"/>
+  <object id="184" gid="12" x="1712" y="224" width="8" height="224"/>
   <object id="185" gid="51" x="1496" y="192" width="16" height="16">
    <properties>
     <property name="goto" value="house:entry"/>
@@ -68,8 +66,8 @@
   </object>
   <object id="186" gid="12" x="392" y="192" width="16" height="16"/>
   <object id="187" gid="48" x="1152" y="88" width="24" height="8"/>
-  <object id="188" gid="145" x="1168" y="176" width="8" height="8"/>
-  <object id="189" gid="145" x="1168" y="192" width="8" height="8"/>
+  <object id="188" gid="145" x="1162" y="172" width="8" height="8"/>
+  <object id="189" gid="145" x="1158" y="188" width="8" height="8"/>
   <object id="190" gid="145" x="1180" y="68" width="8" height="8"/>
   <object id="191" gid="145" x="1196" y="52" width="8" height="8"/>
   <object id="192" gid="145" x="1212" y="68" width="8" height="8"/>
@@ -108,12 +106,11 @@
     <property name="path" value="path4"/>
    </properties>
   </object>
-  <object id="222" gid="140" x="1380" y="156" width="8" height="8"/>
-  <object id="223" gid="140" x="1396" y="156" width="8" height="8"/>
-  <object id="224" gid="140" x="1428" y="156" width="8" height="8"/>
-  <object id="225" gid="140" x="1444" y="156" width="8" height="8"/>
-  <object id="226" gid="143" x="1580" y="172" width="8" height="8"/>
-  <object id="227" type="super-gift" gid="141" x="1576" y="152" width="16" height="16"/>
+  <object id="222" gid="140" x="1380" y="160" width="8" height="8"/>
+  <object id="223" gid="140" x="1396" y="160" width="8" height="8"/>
+  <object id="224" gid="140" x="1428" y="160" width="8" height="8"/>
+  <object id="225" gid="140" x="1444" y="160" width="8" height="8"/>
+  <object id="226" gid="143" x="1700" y="184" width="8" height="8"/>
   <object id="228" gid="79" x="1376" y="192" width="8" height="8">
    <properties>
     <property name="path" value="path4"/>
@@ -129,7 +126,6 @@
     <property name="path" value="path4"/>
    </properties>
   </object>
-  <object id="231" type="super-gift" gid="143" x="1408" y="160" width="16" height="16"/>
   <object id="232" gid="144" x="436" y="140" width="8" height="8"/>
   <object id="233" gid="145" x="460" y="148" width="8" height="8"/>
   <object id="234" gid="12" x="240" y="192" width="16" height="8"/>
@@ -149,7 +145,74 @@
   <object id="238" gid="51" x="208" y="192" width="16" height="16">
    <properties>
     <property name="debug" value="yes"/>
+    <property name="goto" value="roof2:entry"/>
+   </properties>
+  </object>
+  <object id="239" type="super-gift" gid="141" x="1032" y="152" width="16" height="16"/>
+  <object id="240" gid="140" x="12" y="100" width="8" height="8"/>
+  <object id="241" gid="140" x="20" y="88" width="8" height="8"/>
+  <object id="242" gid="140" x="28" y="100" width="8" height="8"/>
+  <object id="243" gid="140" x="12" y="76" width="8" height="8"/>
+  <object id="244" gid="140" x="28" y="76" width="8" height="8"/>
+  <object id="262" gid="51" x="304" y="192" width="16" height="16">
+   <properties>
+    <property name="debug" value="yes"/>
     <property name="goto" value="cake1:entry"/>
+   </properties>
+  </object>
+  <object id="263" gid="51" x="320" y="192" width="16" height="16">
+   <properties>
+    <property name="debug" value="yes"/>
+    <property name="goto" value="cake2:entry"/>
+   </properties>
+  </object>
+  <object id="264" gid="51" x="336" y="192" width="16" height="16">
+   <properties>
+    <property name="debug" value="yes"/>
+    <property name="goto" value="cake3:entry"/>
+   </properties>
+  </object>
+  <object id="265" gid="141" x="1412" y="160" width="8" height="8"/>
+  <object id="266" gid="141" x="1388" y="144" width="8" height="8"/>
+  <object id="267" gid="141" x="1436" y="144" width="8" height="8"/>
+  <object id="268" gid="141" x="1372" y="144" width="8" height="8"/>
+  <object id="269" gid="140" x="1404" y="144" width="8" height="8"/>
+  <object id="270" gid="140" x="1420" y="144" width="8" height="8"/>
+  <object id="272" gid="141" x="1452" y="144" width="8" height="8"/>
+  <object id="273" gid="145" x="1178" y="188" width="8" height="8"/>
+  <object id="274" gid="145" x="1168" y="156" width="8" height="8"/>
+  <object id="277" gid="145" x="1174" y="172" width="8" height="8"/>
+  <object id="278" gid="145" x="912" y="136" width="8" height="8"/>
+  <object id="279" gid="145" x="912" y="104" width="8" height="8"/>
+  <object id="280" gid="145" x="932" y="76" width="8" height="8"/>
+  <object id="281" gid="145" x="948" y="76" width="8" height="8"/>
+  <object id="283" gid="143" x="1684" y="184" width="8" height="8"/>
+  <object id="284" gid="143" x="1668" y="184" width="8" height="8"/>
+  <object id="285" gid="143" x="1652" y="184" width="8" height="8"/>
+  <object id="286" gid="143" x="1660" y="172" width="8" height="8"/>
+  <object id="287" gid="143" x="1676" y="172" width="8" height="8"/>
+  <object id="288" gid="143" x="1692" y="172" width="8" height="8"/>
+  <object id="289" gid="143" x="1668" y="160" width="8" height="8"/>
+  <object id="290" gid="143" x="1684" y="160" width="8" height="8"/>
+  <object id="291" gid="143" x="1676" y="148" width="8" height="8"/>
+  <object id="292" gid="112" x="1168" y="144" width="8" height="8"/>
+  <object id="293" gid="140" x="1500" y="172" width="8" height="8"/>
+  <object id="294" gid="145" x="1500" y="148" width="8" height="8"/>
+  <object id="295" gid="140" x="1494" y="160" width="8" height="8"/>
+  <object id="296" gid="140" x="1506" y="160" width="8" height="8"/>
+  <object id="298" gid="145" x="1500" y="136" width="8" height="8"/>
+  <object id="299" gid="140" x="1488" y="148" width="8" height="8"/>
+  <object id="300" gid="140" x="1512" y="148" width="8" height="8"/>
+  <object id="301" gid="51" x="368" y="192" width="16" height="16">
+   <properties>
+    <property name="debug" value="yes"/>
+    <property name="goto" value="cake3:secret"/>
+   </properties>
+  </object>
+  <object id="302" gid="51" x="352" y="192" width="16" height="16">
+   <properties>
+    <property name="debug" value="yes"/>
+    <property name="goto" value="cake3:debug"/>
    </properties>
   </object>
  </objectgroup>
@@ -180,7 +243,6 @@
   <object id="208" gid="47" x="984" y="208" width="120" height="8"/>
   <object id="209" gid="12" x="976" y="200" width="8" height="112"/>
   <object id="210" gid="12" x="1104" y="184" width="8" height="96"/>
-  <object id="211" type="super-gift" gid="144" x="1032" y="156" width="16" height="16"/>
   <object id="212" gid="140" x="1028" y="172" width="8" height="8"/>
   <object id="213" gid="140" x="1044" y="172" width="8" height="8"/>
   <object id="214" gid="145" x="1016" y="184" width="8" height="8"/>

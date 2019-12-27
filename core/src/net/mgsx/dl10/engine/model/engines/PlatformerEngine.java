@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.mgsx.dl10.GameSettings;
 import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.inputs.InputManager;
+import net.mgsx.dl10.engine.model.entities.MenuCameraAnim;
 import net.mgsx.dl10.engine.model.factories.PlatformerTilemapFactory;
 import net.mgsx.dl10.engine.model.renderer.PlatformerRenderer;
 import net.mgsx.dl10.ui.GameHUD;
@@ -86,6 +87,16 @@ public class PlatformerEngine {
 		PlatformerLevel menu = levels.get("menu");
 		menu.bgTexture = GameAssets.i.bgRoof;
 		menu.hud = new MenuHUD(this);
+		menu.cameraAnim = new MenuCameraAnim();
+		
+		PlatformerLevel cake1 = levels.get("cake1");
+		cake1.bgTexture = GameAssets.i.bgcake;
+		
+		PlatformerLevel cake2 = levels.get("cake2");
+		cake2.bgTexture = GameAssets.i.bgcake;
+		
+		PlatformerLevel cake3 = levels.get("cake3");
+		cake3.bgTexture = GameAssets.i.bgcake;
 		
 		level = levels.get(startLevel);
 		
@@ -93,8 +104,11 @@ public class PlatformerEngine {
 	}
 	
 	public void update(float delta) {
-		if(transitions.size > 0) transitions.peek().update(this, delta);
-		level.update(delta);
+		if(transitions.size > 0){
+			transitions.peek().update(this, delta);
+		}else{
+			level.update(delta);
+		}
 	}
 
 	public void render(Viewport viewport) {

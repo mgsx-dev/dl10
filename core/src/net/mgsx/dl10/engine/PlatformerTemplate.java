@@ -128,7 +128,7 @@ public class PlatformerTemplate extends ScreenAdapter
 		
 		renderer.update(delta);
 		
-		float l = .5f;
+		float l = 0f;
 		Gdx.gl.glClearColor(l, l, l, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
