@@ -1,5 +1,7 @@
 package net.mgsx.dl10.engine.model.engines;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +12,7 @@ import net.mgsx.dl10.GameSettings;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
 import net.mgsx.dl10.engine.model.entities.Player;
+import net.mgsx.dl10.engine.model.entities.Player.State;
 import net.mgsx.dl10.engine.model.entities.PlayerSequences;
 import net.mgsx.dl10.engine.model.renderer.PlatformerRenderer.CameraAnim;
 import net.mgsx.gltf.scene3d.scene.Scene;
@@ -69,6 +72,30 @@ public class PlatformerLevel {
 		toRemove.clear();
 		
 		for(Player player : players){
+			
+			if(GameSettings.debug){
+				if(Gdx.input.isKeyPressed(Input.Keys.F)){
+					player.state = State.DEATH;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.X)){
+					player.state = State.ENTER_H;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.C)){
+					player.state = State.ENTER_V;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.V)){
+					player.state = State.HAPPY;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.B)){
+					player.state = State.UNHAPPY;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.N)){
+					player.state = State.NONE;
+				}
+				if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+					player.state = null;
+				}
+			}
 			
 			player.dyn.lastPosition.set(player.position);
 			
@@ -220,6 +247,25 @@ public class PlatformerLevel {
 			if(!onGround && player.block == null){
 				player.inAir();
 			}
+			
+			boolean panic = false;
+			if(onGround && player.block != null){
+				// get panic state depends on orientation and block borders
+				if(player.position.x + player.size.x/2 < player.block.position.x){
+					panic = true;
+					player.panicInv = player.dyn.velocity.x > 0;
+				}
+				if(player.position.x + player.size.x/2 > player.block.position.x + player.block.size.x){
+					panic = true;
+					player.panicInv = player.dyn.velocity.x < 0;
+				}
+			}
+			if(!panic && player.state == State.PANIC){
+				player.state = null;
+			}else if(panic && player.state == null){
+				player.state = State.PANIC;
+			}
+			
 			
 			player.getBounds(r1);
 			if(!r1.overlaps(worldBounds)){

@@ -2,7 +2,7 @@ package net.mgsx.dl10;
 
 public class GameSettings {
 	
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean steadyCamDebug = debug;
 	
 	public static final int playerLifeMax = 3;

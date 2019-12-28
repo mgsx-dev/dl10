@@ -23,6 +23,7 @@ import net.mgsx.dl10.engine.model.components.CModel;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
 import net.mgsx.dl10.engine.model.entities.Player;
+import net.mgsx.dl10.engine.model.entities.Player.State;
 import net.mgsx.dl10.engine.shaders.OutlineShader;
 import net.mgsx.dl10.engine.shaders.OutlineShaderProvider;
 import net.mgsx.gltf.scene3d.animation.AnimationControllerHack;
@@ -223,27 +224,75 @@ public class PlatformerRenderer {
 				}
 			}
 			
-			if(Math.abs(e.dyn.velocity.x) > .1f){
-				animate(e.model, "run", .1f);
-			}else{
-				animate(e.model, null, 1f);
+			// animate depends on state
+			boolean faceCam = false;
+			float animSpeed = 1f;
+			Boolean leftToRight = null;
+			
+			if(e.state == State.DEATH){
+				animate(e.model, "santa death", .1f);
+				animSpeed = 2f;
+				faceCam = true;
 			}
+			else if(e.state == State.HAPPY){
+				animate(e.model, "santa happy", .1f);
+				animSpeed = 2f;
+				faceCam = true;
+			}
+			else if(e.state == State.UNHAPPY){
+				animate(e.model, "santa unhappy", .1f);
+				animSpeed = 1f;
+				leftToRight = true;
+			}
+			else if(e.state == State.ENTER_V){
+				animate(e.model, "santa enter top", .1f);
+				animSpeed = 2f;
+				faceCam = true;
+			}
+			else if(e.state == State.ENTER_H){
+				animate(e.model, "santa unhappy", .1f); // it works with this anim in speed mode... XXX
+				animSpeed = 2f;
+				leftToRight = !e.leftToRight; // XXX inverted
+			}
+			else if(e.state == State.PANIC){
+				animate(e.model, e.panicInv ? "santa panic inv" : "santa panic", .1f);
+				animSpeed = 2f;
+			}
+			else if(e.state == State.NONE){
+				animate(e.model, "santa idle", .1f);
+				animSpeed = .5f;
+			}
+			else if(e.hurt){
+				animate(e.model, "santa hurt", .1f);
+				animSpeed = 2f;
+			}
+			else if(e.jumping){
+				animate(e.model, "santa jump", .1f);
+				animSpeed = 2f;
+			}else if(e.dyn.velocity.x * e.velocityTarget.x < 10 && Math.abs(e.dyn.velocity.x - e.velocityTarget.x) > .2f){
+				animate(e.model, "santa halfturn", .1f);
+			}else if(Math.abs(e.dyn.velocity.x) > .1f){
+				animate(e.model, "santa run", .1f);
+				animSpeed = Math.abs(e.dyn.velocity.x / 5);
+			}else{
+				animate(e.model, "santa idle", .1f);
+				animSpeed = .5f;
+			}
+			
+			// apply
 			
 			e.model.node.translation.set(e.position.x + e.size.x/2, e.position.y, 0);
 			
-			float fakeDirectionAngle = 80;
-			
-			e.model.node.rotation.set(Vector3.Y, e.dyn.velocity.x > 0 ? fakeDirectionAngle : -fakeDirectionAngle);
-			/*
-			e.model.scene.modelInstance.transform
-			.idt()
-			.translate(e.position.x + e.size.x/2, e.position.y, 0)
-			.rotate(Vector3.Y, e.dyn.velocity.x > 0 ? 90 : -90)
-			;
-			*/
+			if(faceCam){
+				e.model.node.rotation.set(Vector3.Y, 0);
+			}else{
+				float fakeDirectionAngle = 80;
+				leftToRight = leftToRight == null ? e.dyn.velocity.x > 0 : leftToRight;
+				e.model.node.rotation.set(Vector3.Y, leftToRight ? fakeDirectionAngle : -fakeDirectionAngle);
+			}
 			
 			if(e.model.anim.current != null){
-				e.model.anim.current.speed = Math.abs(e.dyn.velocity.x / 5);
+				e.model.anim.current.speed = animSpeed;
 			}
 			
 			e.model.anim.update(delta);

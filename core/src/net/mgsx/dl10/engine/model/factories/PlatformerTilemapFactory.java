@@ -301,7 +301,7 @@ public class PlatformerTilemapFactory {
 				
 				b.type = "SnowmanBig";
 						
-				b.life = new CLife(4);
+				b.life = new CLife(2);
 				
 				b.logic = new MobLogicBase();
 				
@@ -346,7 +346,7 @@ public class PlatformerTilemapFactory {
 				
 				b.type = "mob4";
 						
-				b.life = new CLife(2);
+				b.life = new CLife(4);
 				
 				b.logic = new MobLogicBase();
 				

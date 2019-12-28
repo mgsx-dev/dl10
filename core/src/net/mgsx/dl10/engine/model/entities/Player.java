@@ -10,6 +10,14 @@ import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 
 public class Player extends EBase {
 
+	public static enum State {
+		NONE, DEATH, HAPPY, UNHAPPY, ENTER_V, ENTER_H, PANIC
+	}
+	
+	public State state;
+
+	public boolean hurt;
+	
 	public final Vector2 velocityTarget = new Vector2();
 	
 	float force;
@@ -28,6 +36,10 @@ public class Player extends EBase {
 	public final Array<CUpdatable> sequence = new Array<CUpdatable>();
 
 	private float hitTimeout;
+
+	public Boolean leftToRight;
+
+	public boolean panicInv;
 	
 	public void reset(){
 		hitTimeout = -1;

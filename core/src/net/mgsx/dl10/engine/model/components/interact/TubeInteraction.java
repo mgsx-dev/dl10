@@ -9,6 +9,7 @@ import net.mgsx.dl10.engine.model.components.CInteraction;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
 import net.mgsx.dl10.engine.model.engines.PlatformerLevel;
 import net.mgsx.dl10.engine.model.entities.Player;
+import net.mgsx.dl10.engine.model.entities.Player.State;
 import net.mgsx.dl10.engine.model.transitions.DefaultTransition;
 
 public class TubeInteraction implements CInteraction
@@ -24,24 +25,30 @@ public class TubeInteraction implements CInteraction
 	 * @param e
 	 */
 	private void setVectors(Vector2 a, Vector2 b, Player player, EBase e){
+		
+		float extraV = 2f;
+		float extraH = 1f;
+		
 		if(e.direction == CBlock.TOP){
 			a.set(e.position.x + e.size.x/2 - player.size.x/2, e.position.y + e.size.y);
-			b.set(a).add(0, -player.size.y);
+			b.set(a).add(0, -player.size.y * extraV);
 		}else if(e.direction == CBlock.BOTTOM){
 			b.set(e.position.x + e.size.x/2 - player.size.x/2, e.position.y);
 			a.set(b).add(0, -player.size.y);
+			b.y += player.size.y * extraV;
 		}else if(e.direction == CBlock.RIGHT){
 			a.set(e.position.x + e.size.x , e.position.y);
-			b.set(a).add(- player.size.x, 0);
+			b.set(a).add(- player.size.x - extraH, 0);
 		}else if(e.direction == CBlock.LEFT){
-			b.set(e.position.x, e.position.y);
+			b.set(e.position.x , e.position.y);
 			a.set(b).add(-player.size.x, 0);
+			b.x += extraH;
 		}
 		// TODO other
 	}
 	
 	@Override
-	public void onInteraction(final PlatformerEngine engine, final Player player, final EBase e, int direction) {
+	public void onInteraction(final PlatformerEngine engine, final Player player, final EBase e, final int direction) {
 		if(direction == e.direction){
 			
 			if(direction == CBlock.TOP && player.down || direction != CBlock.TOP){ // XXX work with all directions (not sure for left/right
@@ -59,7 +66,9 @@ public class TubeInteraction implements CInteraction
 				setVectors(dstA, dstB, player, e2);
 				
 				final Player targetPlayer = targetLevel.players.first();
+				targetPlayer.leftToRight = srcB.x > srcA.x; // XXX fake
 				
+				player.state = direction == CBlock.TOP ? State.ENTER_V : State.ENTER_H;
 				
 				player.sequence.add(new CUpdatable() {
 					private float t;
@@ -79,6 +88,11 @@ public class TubeInteraction implements CInteraction
 						}
 						targetLevel.worldPosition.set(e2.position.x + e2.size.x/2, e2.position.y + e2.size.y - 2);
 						if(engine.level != targetLevel) engine.transitions.add(new DefaultTransition(targetLevel));
+						
+						targetPlayer.state = Math.abs(dstB.y - dstA.y) > 0.1f ? State.ENTER_V : State.ENTER_H;
+						
+						targetPlayer.leftToRight = dstB.x < dstA.x; // XXX fake
+						
 						return false;
 					}
 				});
@@ -94,6 +108,10 @@ public class TubeInteraction implements CInteraction
 						targetPlayer.velocityTarget.setZero();
 						targetPlayer.dyn.lastPosition.set(targetPlayer.position);
 						targetPlayer.gravity = 0;
+						if(t >= 1){
+							targetPlayer.state = null;
+							targetPlayer.leftToRight = null;
+						}
 						return t <= 1;
 					}
 				});
