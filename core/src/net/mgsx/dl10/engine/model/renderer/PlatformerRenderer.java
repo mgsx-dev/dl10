@@ -204,7 +204,17 @@ public class PlatformerRenderer {
 		for(int j=0 ; j<weightNodes.size ; j++){
 			NodePlus node = weightNodes.get(j);
 			for(int i=0 ; i<node.weights.count ; i++){
-				float v = MathUtils.sin(((time  + (i + j) / 1f) * 1 * (i * 0.34f + 1f) ) % MathUtils.PI2) * .5f + .5f;
+				// float v = MathUtils.sin(((time  + (i + j) / 1f) * 1 * (i * 0.14f + 1f) ) % MathUtils.PI2) * .5f + .5f;
+				// v += MathUtils.sin(time * 10) * .3f;
+				
+				float v;
+				if(i==0){
+					v = .5f + MathUtils.sin(time * 2.1f) * .5f +  + MathUtils.sin(time * 20) * .2f;
+				}else{
+					v = MathUtils.sin(time * 1) * .5f + .5f;
+				}
+				
+				
 				for(NodePart part : node.parts){
 					((NodePartPlus) part).morphTargets.values[i] = v;
 				}
@@ -418,7 +428,20 @@ public class PlatformerRenderer {
 			ModelBatch oldBatch = sceneManager.getBatch();
 			sceneManager.setBatch(outlineExtBatch);
 
+			
+			for(NodePlus n : weightNodes){
+				for(NodePart p : n.parts){
+					p.enabled = false;
+				}
+			}
+			
 			sceneManager.renderColors();
+			
+			for(NodePlus n : weightNodes){
+				for(NodePart p : n.parts){
+					p.enabled = true;
+				}
+			}
 			
 			sceneManager.setBatch(oldBatch);
 		}
