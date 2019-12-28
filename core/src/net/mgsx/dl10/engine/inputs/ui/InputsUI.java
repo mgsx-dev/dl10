@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.inputs.ControllerBase;
 import net.mgsx.dl10.engine.inputs.InputManager;
 import net.mgsx.dl10.engine.inputs.InputManager.Command;
@@ -58,6 +59,7 @@ public class InputsUI extends Table
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				InputsUI.this.inputs.save();
+				GameAssets.i.playUIAny();
 				remove();
 			}
 		});
@@ -104,6 +106,7 @@ public class InputsUI extends Table
 							ce.learnStop();
 						}
 					}
+					GameAssets.i.playUIAny();
 				}
 			});
 		}
@@ -135,6 +138,7 @@ public class InputsUI extends Table
 			if(trigger != null){
 				ce.triggers.put(trigger, learningCommand);
 				learnLabel.setText(triggersToText(ce, learningCommand));
+				GameAssets.i.playUIAny();
 			}
 		}
 		super.act(delta);

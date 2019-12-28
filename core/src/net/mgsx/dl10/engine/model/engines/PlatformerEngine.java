@@ -75,30 +75,41 @@ public class PlatformerEngine {
 		}
 		
 		// configure
-		PlatformerLevel house = levels.get("house");
-		house.screenClamp = false;
-		house.screenZoom = 4;
-		house.viewOffset = 4;
-		
-		PlatformerLevel roof1 = levels.get("roof1");
-		roof1.bgTexture = GameAssets.i.bgRoof;
-		roof1.viewOffset = -2;
-		
 		PlatformerLevel menu = levels.get("menu");
 		menu.bgTexture = GameAssets.i.bgRoof;
 		menu.hud = new MenuHUD(this);
 		menu.cameraAnim = new MenuCameraAnim();
+		menu.music = "menu";
+
+		PlatformerLevel roof1 = levels.get("roof1");
+		roof1.bgTexture = GameAssets.i.bgRoof;
+		roof1.viewOffset = -2;
+		roof1.music = "roof";
+		
+		PlatformerLevel roof2 = levels.get("roof2");
+		roof2.music = "cakes";
+		
+		PlatformerLevel house = levels.get("house");
+		house.screenClamp = false;
+		house.screenZoom = 4;
+		house.viewOffset = 4;
+		house.music = "cakes";
 		
 		PlatformerLevel cake1 = levels.get("cake1");
 		cake1.bgTexture = GameAssets.i.bgcake;
+		cake1.music = "jazz1";
 		
 		PlatformerLevel cake2 = levels.get("cake2");
 		cake2.bgTexture = GameAssets.i.bgcake;
+		cake2.music = "jazz2";
 		
 		PlatformerLevel cake3 = levels.get("cake3");
 		cake3.bgTexture = GameAssets.i.bgcake;
+		cake3.music = "jazz3";
 		
 		level = levels.get(startLevel);
+		
+		GameAssets.i.playMusic(level.music);
 		
 		renderer.initialize();
 	}

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.CUpdatable;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
@@ -40,6 +41,8 @@ public class Player extends EBase {
 	public Boolean leftToRight;
 
 	public boolean panicInv;
+
+	public boolean dead;
 	
 	public void reset(){
 		hitTimeout = -1;
@@ -53,6 +56,7 @@ public class Player extends EBase {
 		velocityTarget.setZero();
 		dyn.lastPosition.set(position);
 		dyn.velocity.setZero();
+		dead = false;
 	}
 	
 	public void jump() {
@@ -78,6 +82,8 @@ public class Player extends EBase {
 		gravity = 0;
 		
 		onGround = false;
+	
+		GameAssets.i.playSantaJump();
 	}
 
 	public void jumpOff() {
@@ -89,6 +95,10 @@ public class Player extends EBase {
 	}
 	
 	public void onGround(float groundY){
+		if(!onGround){
+			GameAssets.i.playSantaFall();
+		}
+		
 		jumping = false;
 		dyn.velocity.y = 0;
 		position.y = groundY;

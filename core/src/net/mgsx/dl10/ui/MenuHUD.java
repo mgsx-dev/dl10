@@ -39,6 +39,7 @@ public class MenuHUD extends Table {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				engine.transitions.add(new DefaultTransition(engine.levels.get("roof1")));
+				GameAssets.i.playUIStart();
 			}
 		});
 		
@@ -47,6 +48,7 @@ public class MenuHUD extends Table {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				engine.inputManager.openSettings(getStage(), getSkin());
+				GameAssets.i.playUIAny();
 			}
 		});
 		

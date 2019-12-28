@@ -3,6 +3,7 @@ package net.mgsx.dl10.engine.model.entities;
 import com.badlogic.gdx.math.Interpolation;
 
 import net.mgsx.dl10.GameSettings;
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.CUpdatable;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.engines.PlatformerEngine;
@@ -18,6 +19,8 @@ public class PlayerSequences {
 		final float playerY = player.position.y;
 		
 		final float maxY = 5;
+		
+		GameAssets.i.playSantaDead();
 		
 		player.sequence.add(new CUpdatable() {
 			float time;
@@ -67,6 +70,9 @@ public class PlayerSequences {
 	}
 	
 	public static void createGameEndSequence(final PlatformerEngine engine, final Player player){
+		
+		GameAssets.i.playEnd();
+		
 		// TODO a lot of stuff to do...
 		player.sequence.add(new CUpdatable() {
 			private float time;
@@ -87,12 +93,21 @@ public class PlayerSequences {
 						for(EBase b : engine.level.blocks){
 							if(b.bonus != null && b.bonus.fake && b.bonus.varIndex == count){
 								b.bonus.fake = false;
+								GameAssets.i.playBigBonus();
 							}
 						}
 						
 					}
 					
 					count++;
+					
+					if(count >= GameSettings.bigBonusMax){
+						if(engine.bigBonus.size >= GameSettings.bigBonusMax){
+							GameAssets.i.playWin();
+						}else{
+							GameAssets.i.playLose();
+						}
+					}
 				}
 				
 				

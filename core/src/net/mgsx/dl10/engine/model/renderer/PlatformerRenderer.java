@@ -252,7 +252,7 @@ public class PlatformerRenderer {
 			else if(e.state == State.ENTER_H){
 				animate(e.model, "santa unhappy", .1f); // it works with this anim in speed mode... XXX
 				animSpeed = 2f;
-				leftToRight = !e.leftToRight; // XXX inverted
+				leftToRight = e.leftToRight == null || !e.leftToRight; // XXX inverted
 			}
 			else if(e.state == State.PANIC){
 				animate(e.model, e.panicInv ? "santa panic inv" : "santa panic", .1f);

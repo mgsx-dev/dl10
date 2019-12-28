@@ -2,6 +2,7 @@ package net.mgsx.dl10.engine.model.components.interact;
 
 import com.badlogic.gdx.math.Vector2;
 
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.CUpdatable;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
@@ -70,6 +71,8 @@ public class TubeInteraction implements CInteraction
 				
 				player.state = direction == CBlock.TOP ? State.ENTER_V : State.ENTER_H;
 				
+				GameAssets.i.playSantaEnterIn();
+				
 				player.sequence.add(new CUpdatable() {
 					private float t;
 					
@@ -98,9 +101,15 @@ public class TubeInteraction implements CInteraction
 				});
 				targetPlayer.sequence.add(new CUpdatable() {
 					private float t;
-					
+					private boolean first = true;
 					@Override
 					public boolean update(EBase e, float delta) {
+						
+						if(first){
+							GameAssets.i.playSantaEnterOut();
+							first = false;
+						}
+						
 						t += delta;
 						targetPlayer.position.set(dstB).lerp(dstA, t);
 						// targetPlayer.dyn.velocity.y = 1;

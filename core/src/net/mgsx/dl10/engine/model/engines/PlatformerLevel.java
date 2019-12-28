@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 import net.mgsx.dl10.GameSettings;
+import net.mgsx.dl10.assets.GameAssets;
 import net.mgsx.dl10.engine.model.EBase;
 import net.mgsx.dl10.engine.model.components.CBlock;
 import net.mgsx.dl10.engine.model.entities.Player;
@@ -47,6 +48,7 @@ public class PlatformerLevel {
 	public float viewOffset = 0;
 	public Actor hud;
 	public CameraAnim cameraAnim;
+	public String music;
 	
 	public PlatformerLevel(PlatformerEngine engine) {
 		super();
@@ -120,7 +122,7 @@ public class PlatformerLevel {
 			float pvely = player.dyn.velocity.y;
 			player.dyn.velocity.y += player.gravity * delta;
 			if(pvely > 0 && player.dyn.velocity.y <= 0){
-				System.out.println(player.position.y);
+				// System.out.println(player.position.y);
 			}
 			
 			boolean onGround = false;
@@ -148,12 +150,15 @@ public class PlatformerLevel {
 										engine.playerContinues++;
 									}
 								}
+								GameAssets.i.playLifeBonus();
 							}
 							else if(e.bonus.superBonus){
 								engine.bigBonus.add(e.bonus.varIndex);
 								engine.smallBonus += GameSettings.bigBonusPoints;
+								GameAssets.i.playBigBonus();
 							}else{
 								engine.smallBonus++;
+								GameAssets.i.playSmallBonus();
 							}
 							if(engine.smallBonus >= GameSettings.bonusPerLife){
 								engine.smallBonus -= GameSettings.bonusPerLife;
@@ -164,6 +169,7 @@ public class PlatformerLevel {
 										engine.playerContinues++;
 									}
 								}
+								GameAssets.i.playExtraBonus();
 							}
 						}
 						if("end-game".equals(e.type)){
@@ -264,12 +270,14 @@ public class PlatformerLevel {
 				player.state = null;
 			}else if(panic && player.state == null){
 				player.state = State.PANIC;
+				// TODO play panic ?
 			}
 			
 			
 			player.getBounds(r1);
 			if(!r1.overlaps(worldBounds)){
-				if(player.position.y < 0){
+				if(player.position.y < 0 && !player.dead){
+					player.dead = true;
 					PlayerSequences.createDeathSequence(engine, player);
 				}
 			}
@@ -308,6 +316,12 @@ public class PlatformerLevel {
 						if(c.life != null){
 							c.life.decrease();
 						}
+						if(c.life != null && c.life.amount <= 0){
+							GameAssets.i.playMobDead();
+						}else{
+							GameAssets.i.playMobHurt();
+						}
+						
 					}else{
 						// head
 						if(player.canBeHit()){
@@ -325,14 +339,13 @@ public class PlatformerLevel {
 				
 				engine.playerLife--;
 				if(engine.playerLife <= 0){
-					
-					// TODO set dead
-					PlayerSequences.createDeathSequence(engine, player);
-					
+					if(!player.dead){
+						player.dead = true;
+						PlayerSequences.createDeathSequence(engine, player);
+					}
 				}else{
-					// TODO blinking
 					player.setHit();
-					
+					GameAssets.i.playSantaHurt();
 				}
 				
 			}

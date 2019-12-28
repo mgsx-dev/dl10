@@ -23,6 +23,7 @@ public class DefaultTransition implements Transition {
 	public float speed = 1;
 	public Interpolation interpolation = Interpolation.bounceOut;
 	private Texture texture;
+	private boolean first = true;
 	
 	public DefaultTransition(PlatformerLevel nextLevel) {
 		super();
@@ -32,13 +33,20 @@ public class DefaultTransition implements Transition {
 
 	@Override
 	public void update(PlatformerEngine engine, float delta) {
+		if(first){
+			first = false;
+			GameAssets.i.stopMusic();
+			GameAssets.i.playTransitionIn();
+		}
 		time += delta * speed;
 		reverse = time > delayRate + 1; // XXX
 		if(time > delayRate + 2){
+			if(nextLevel != null) GameAssets.i.playMusic(nextLevel.music);
 			engine.transitions.removeIndex(0);
 		}else if(!swap && time > 1){
 			swap = true;
 			swap(engine);
+			GameAssets.i.playTransitionOut();
 		}
 	}
 
@@ -57,7 +65,9 @@ public class DefaultTransition implements Transition {
 	}
 	
 	protected void swap(PlatformerEngine engine){
-		if(nextLevel != null) engine.level = nextLevel;
+		if(nextLevel != null){
+			engine.level = nextLevel;
+		}
 	}
 
 
