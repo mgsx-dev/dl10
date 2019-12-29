@@ -7,12 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 
 import net.mgsx.dl10.engine.inputs.gamepad.GamepadController;
 import net.mgsx.dl10.engine.inputs.keyboard.KeyboardController;
 import net.mgsx.dl10.engine.inputs.keyboard.KeyboardTrigger;
+import net.mgsx.dl10.engine.inputs.store.ControllerData;
+import net.mgsx.dl10.engine.inputs.store.InputsData;
 import net.mgsx.dl10.engine.inputs.ui.InputsUI;
 
 public class InputManager {
@@ -37,6 +38,16 @@ public class InputManager {
 	
 	public InputManager(Preferences prefs) {
 		this.prefs = prefs;
+		controllers.add(new KeyboardController());
+		for(Controller controller : Controllers.getControllers()){
+			controllers.add(new GamepadController(controller));
+		}
+		controller = controllers.first();
+	}
+	
+	public void reload() {
+		controllers.clear();
+		
 		controllers.add(new KeyboardController());
 		for(Controller controller : Controllers.getControllers()){
 			controllers.add(new GamepadController(controller));
@@ -77,15 +88,6 @@ public class InputManager {
 		
 	}
 
-	private static class InputsData {
-		public final Array<ControllerData> controllers = new Array<ControllerData>();
-		public final Array<Integer> activations = new Array<Integer>(); 
-	}
-	private static class ControllerData {
-		public String name;
-		public final ObjectMap<String, String> triggers = new ObjectMap<String, String>();
-	}
-	
 	public boolean load() 
 	{
 		String json = prefs.getString("controls", null);
@@ -138,5 +140,6 @@ public class InputManager {
 		prefs.putString("controls", new Json().toJson(data));
 		prefs.flush();
 	}
+
 
 }

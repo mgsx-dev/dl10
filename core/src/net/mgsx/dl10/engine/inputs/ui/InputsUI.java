@@ -35,6 +35,8 @@ public class InputsUI extends Table
 		super(skin);
 		this.inputs = inputs;
 		
+		inputs.reload();
+		
 		setBackground("default-rect");
 		defaults().pad(20);
 		

@@ -19,7 +19,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '0.1'
+    version = '1.0'
     ext {
         appName = "dl10"
         gdxVersion = '1.9.10'
@@ -28,6 +28,7 @@ allprojects {
         ashleyVersion = '1.7.3'
         aiVersion = '1.8.0'
         junitVersion = '4.12'
+        gltfVersion = '6029657447'
     }
 
     repositories {
@@ -101,6 +102,11 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
         
+        compile "com.github.mgsx-dev.gdx-gltf:gltf:$gltfVersion:sources"
+        
+        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
+		compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
+		compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
     }
 }
 
@@ -111,7 +117,7 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         
-        compile "com.github.mgsx-dev.gdx-gltf:gltf:a26786718f"
+        compile "com.github.mgsx-dev.gdx-gltf:gltf:$gltfVersion"
         
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         

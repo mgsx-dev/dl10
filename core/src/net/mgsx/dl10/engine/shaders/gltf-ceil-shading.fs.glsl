@@ -290,40 +290,7 @@ vec4 SRGBtoLINEAR(vec4 srgbIn)
 // or from the interpolated mesh normal and tangent attributes.
 vec3 getNormal()
 {
-    // Retrieve the tangent space matrix
-#ifndef tangentFlag
-    vec3 pos_dx = dFdx(v_position);
-    vec3 pos_dy = dFdy(v_position);
-#ifdef diffuseTextureFlag
-    vec3 tex_dx = dFdx(vec3(v_diffuseUV, 0.0));
-    vec3 tex_dy = dFdy(vec3(v_diffuseUV, 0.0));
-    vec3 t = (tex_dy.t * pos_dx - tex_dx.t * pos_dy) / (tex_dx.s * tex_dy.t - tex_dy.s * tex_dx.t);
-#else
-    vec3 t = vec3(1.0, 1.0, 1.0);
-#endif
-    
-#ifdef normalFlag
-    vec3 ng = normalize(v_normal);
-#else
-    vec3 ng = cross(pos_dx, pos_dy);
-#endif
-
-    t = normalize(t - ng * dot(ng, t));
-    vec3 b = normalize(cross(ng, t));
-    mat3 tbn = mat3(t, b, ng);
-#else // tangentFlag
-    mat3 tbn = v_TBN;
-#endif
-
-#ifdef normalTextureFlag
-    vec3 n = texture2D(u_normalTexture, v_normalUV).rgb;
-    n = normalize(tbn * ((2.0 * n - 1.0) * vec3(u_NormalScale, u_NormalScale, 1.0)));
-#else
-    // The tbn matrix is linearly interpolated, so we need to re-normalize
-    vec3 n = normalize(tbn[2].xyz);
-#endif
-
-    return n;
+	return normalize(v_normal);
 }
 
 // Calculation of the lighting contribution from an optional Image Based Light source.

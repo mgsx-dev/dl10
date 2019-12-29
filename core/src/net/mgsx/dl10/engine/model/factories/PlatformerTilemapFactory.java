@@ -407,8 +407,8 @@ public class PlatformerTilemapFactory {
 		int mapW = map.getProperties().get("width", Integer.class);
 		int mapH = map.getProperties().get("height", Integer.class);
 		
-		float tileW = map.getProperties().get("tilewidth", Integer.class);
-		float tileH = map.getProperties().get("tileheight", Integer.class);
+		float tileW = (float)map.getProperties().get("tilewidth", Integer.class);
+		float tileH = (float)map.getProperties().get("tileheight", Integer.class);
 		
 		level.worldBounds.set(0, 0, mapW, mapH);
 		

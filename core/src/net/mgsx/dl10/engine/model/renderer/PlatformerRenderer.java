@@ -190,6 +190,7 @@ public class PlatformerRenderer {
 		config.numPointLights = 0;
 		config.numSpotLights = 0;
 		config.numVertexColors = 2;
+		config.useTangentSpace = false;
 		return PBRShaderProvider.createDefault(config);
 	}
 	

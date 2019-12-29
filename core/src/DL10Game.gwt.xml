@@ -4,4 +4,12 @@
 	<source path="net/mgsx/dl10" />
 	<inherits name='GLTF' />
 	<inherits name="com.badlogic.gdx.controllers.controllers-gwt"/>
+	
+	<extend-configuration-property name="gdx.reflect.include" value="net.mgsx.dl10.engine.inputs.store" />
+	
+	<extend-configuration-property name="gdx.files.classpath" value="net/mgsx/dl10/engine/shaders/gltf-ceil-shading.fs.glsl" />
+	<extend-configuration-property name="gdx.files.classpath" value="net/mgsx/dl10/engine/shaders/gltf-ceil-shading.vs.glsl" />
+	<extend-configuration-property name="gdx.files.classpath" value="net/mgsx/dl10/engine/shaders/gltf-outline-ext.fs.glsl" />
+	<extend-configuration-property name="gdx.files.classpath" value="net/mgsx/dl10/engine/shaders/gltf-outline-ext.vs.glsl" />
+	
 </module>

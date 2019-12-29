@@ -31,7 +31,28 @@ public class GamepadPovTrigger extends GamepadTrigger {
 	}
 	@Override
 	public boolean isOn(GamepadController controller) {
-		// TODO not true
+		PovDirection cdir = controller.controller.getPov(pov);
+		if(direction == PovDirection.east){
+			if(cdir == PovDirection.northEast) return true;
+			if(cdir == PovDirection.east) return true;
+			if(cdir == PovDirection.southEast) return true;
+		}
+		else if(direction == PovDirection.west){
+			if(cdir == PovDirection.northWest) return true;
+			if(cdir == PovDirection.west) return true;
+			if(cdir == PovDirection.southWest) return true;
+		}
+		else if(direction == PovDirection.north){
+			if(cdir == PovDirection.northWest) return true;
+			if(cdir == PovDirection.north) return true;
+			if(cdir == PovDirection.northEast) return true;
+		}
+		else if(direction == PovDirection.south){
+			if(cdir == PovDirection.southWest) return true;
+			if(cdir == PovDirection.south) return true;
+			if(cdir == PovDirection.southEast) return true;
+		}
+		
 		return controller.controller.getPov(pov) == direction; 
 	}
 
