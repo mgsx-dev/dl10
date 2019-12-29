@@ -2,10 +2,10 @@ package net.mgsx.dl10;
 
 public class GameSettings {
 	
-	public static boolean debug = true;
+	public static boolean debug = false;
 	public static boolean steadyCamDebug = debug;
 	public static boolean stats = debug;
-	public static boolean disableVsync = true;
+	public static boolean disableVsync = false;
 	
 	public static final int playerLifeMax = 3;
 	public static final int playerContinues = 3;
