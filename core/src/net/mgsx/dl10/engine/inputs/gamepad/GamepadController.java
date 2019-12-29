@@ -5,9 +5,8 @@ import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.PovDirection;
 
 import net.mgsx.dl10.engine.inputs.ControllerBase;
-import net.mgsx.dl10.engine.inputs.InputManager;
-import net.mgsx.dl10.engine.inputs.TriggerBase;
 import net.mgsx.dl10.engine.inputs.InputManager.Command;
+import net.mgsx.dl10.engine.inputs.TriggerBase;
 
 public class GamepadController extends ControllerBase
 {
@@ -56,7 +55,9 @@ public class GamepadController extends ControllerBase
 			if(pd != PovDirection.center) System.out.println(pd);
 		}
 		*/
-		return lastTrigger;
+		GamepadTrigger trigger = lastTrigger;
+		lastTrigger = null;
+		return trigger;
 	}
 
 	@Override

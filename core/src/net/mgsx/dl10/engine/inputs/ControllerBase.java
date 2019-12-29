@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 
 import net.mgsx.dl10.engine.inputs.InputManager.Command;
+import net.mgsx.dl10.engine.inputs.gamepad.GamepadAxisTrigger;
 import net.mgsx.dl10.engine.inputs.gamepad.GamepadButtonTrigger;
 import net.mgsx.dl10.engine.inputs.gamepad.GamepadPovTrigger;
 import net.mgsx.dl10.engine.inputs.keyboard.KeyboardTrigger;
@@ -59,7 +60,10 @@ public abstract class ControllerBase {
 		if(params[0].equals("KEY")){
 			return new KeyboardTrigger(Integer.parseInt(params[1]));
 		}
-		// TODO more
+		if(params[0].equals("AXIS")){
+			return new GamepadAxisTrigger(Integer.parseInt(params[1]), "+".equals(params[2]));
+		}
+		// TODO sliders...
 		return null;
 	}
 }

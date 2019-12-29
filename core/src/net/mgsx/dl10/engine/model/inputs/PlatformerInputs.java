@@ -14,6 +14,11 @@ public class PlatformerInputs extends InputManager
 	
 	public PlatformerInputs(Preferences prefs) {
 		super(prefs);
+	}
+	
+	@Override
+	protected void setDefault() {
+		super.setDefault();
 		
 		addCommand(PlayerCommand.LEFT, "left", "Move left");
 		addCommand(PlayerCommand.RIGHT, "right", "Move right");
@@ -26,9 +31,6 @@ public class PlatformerInputs extends InputManager
 		addKeys(PlayerCommand.RIGHT, Input.Keys.RIGHT, Input.Keys.D);
 		addKeys(PlayerCommand.JUMP, Input.Keys.UP, Input.Keys.Z, Input.Keys.W);
 		addKeys(PlayerCommand.DOWN, Input.Keys.DOWN, Input.Keys.S);
-		
-		// load saved configuration
-		load();
 	}
 
 	public void update(Player player) 

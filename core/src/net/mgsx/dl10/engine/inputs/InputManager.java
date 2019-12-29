@@ -38,11 +38,7 @@ public class InputManager {
 	
 	public InputManager(Preferences prefs) {
 		this.prefs = prefs;
-		controllers.add(new KeyboardController());
-		for(Controller controller : Controllers.getControllers()){
-			controllers.add(new GamepadController(controller));
-		}
-		controller = controllers.first();
+		reload();
 	}
 	
 	public void reload() {
@@ -53,8 +49,17 @@ public class InputManager {
 			controllers.add(new GamepadController(controller));
 		}
 		controller = controllers.first();
+		
+		commands.clear();
+		
+		setDefault();
+		load();
 	}
 	
+	protected void setDefault() {
+		
+	}
+
 	public void openSettings(Stage stage, Skin skin) {
 		if(lastUI == null || !lastUI.hasParent()){
 			InputsUI ui = new InputsUI(this, skin);
