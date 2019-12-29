@@ -49,6 +49,7 @@ public class PlatformerLevel {
 	public Actor hud;
 	public CameraAnim cameraAnim;
 	public String music;
+	public float musicLevel = 1f;
 	
 	public PlatformerLevel(PlatformerEngine engine) {
 		super();
@@ -172,7 +173,8 @@ public class PlatformerLevel {
 								GameAssets.i.playExtraBonus();
 							}
 						}
-						if("end-game".equals(e.type)){
+						if("end-game".equals(e.type) && !engine.ended){
+							engine.ended = true;
 							PlayerSequences.createGameEndSequence(engine, player);
 						}
 					}

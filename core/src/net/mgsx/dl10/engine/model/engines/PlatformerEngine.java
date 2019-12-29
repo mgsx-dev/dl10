@@ -38,6 +38,8 @@ public class PlatformerEngine {
 	public PlatformerRenderer renderer;
 
 	public InputManager inputManager;
+
+	public boolean ended;
 	
 	public PlatformerEngine(InputManager inputManager) {
 		
@@ -57,6 +59,8 @@ public class PlatformerEngine {
 		smallBonus = 0; 
 		
 		reset("menu");
+		
+		ended = false;
 	}
 	public void reset(String startLevel){
 		
@@ -86,14 +90,18 @@ public class PlatformerEngine {
 		roof1.viewOffset = -2;
 		roof1.music = "roof";
 		
+		float houseVolume = .5f;
+		
 		PlatformerLevel roof2 = levels.get("roof2");
 		roof2.music = "cakes";
+		roof2.musicLevel = houseVolume;
 		
 		PlatformerLevel house = levels.get("house");
 		house.screenClamp = false;
 		house.screenZoom = 4;
 		house.viewOffset = 4;
 		house.music = "cakes";
+		house.musicLevel = houseVolume;
 		
 		PlatformerLevel cake1 = levels.get("cake1");
 		cake1.bgTexture = GameAssets.i.bgcake;
@@ -109,7 +117,7 @@ public class PlatformerEngine {
 		
 		level = levels.get(startLevel);
 		
-		GameAssets.i.playMusic(level.music);
+		GameAssets.i.playMusic(level.music, level.musicLevel);
 		
 		renderer.initialize();
 	}

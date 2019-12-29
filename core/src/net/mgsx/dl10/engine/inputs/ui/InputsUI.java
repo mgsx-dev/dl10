@@ -1,5 +1,6 @@
 package net.mgsx.dl10.engine.inputs.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
@@ -35,11 +36,12 @@ public class InputsUI extends Table
 		this.inputs = inputs;
 		
 		setBackground("default-rect");
+		defaults().pad(20);
 		
 		buttons.setMinCheckCount(0);
 		buttons.setMaxCheckCount(1);
 		
-		add("Controller settings").row();
+		add("CONTROLLER SETTINGS").row();
 		
 		controllerSelector = new SelectBox<ControllerBase>(skin);
 		controllerSelector.setItems(inputs.controllers);
@@ -76,12 +78,15 @@ public class InputsUI extends Table
 	private void displayController(final ControllerBase ce){
 		cmdTable.clearChildren();
 		
+		cmdTable.defaults().pad(10);
+		
 		buttons.clear();
 		
 		for(final Command cmd : inputs.commands){
 			cmdTable.add(cmd.label);
 			
 			final Label keysLabel = cmdTable.add(triggersToText(ce, cmd)).getActor();
+			keysLabel.setColor(Color.BLACK);
 			
 			final TextButton btLearn = new TextButton("change", getSkin(), "toggle");
 			cmdTable.add(btLearn).row();
@@ -93,7 +98,7 @@ public class InputsUI extends Table
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if(btLearn.isChecked()){
-						keysLabel.setText("learning...");
+						keysLabel.setText("...");
 						learnLabel = keysLabel;
 						learningCommand = cmd;
 						ce.clear(cmd);

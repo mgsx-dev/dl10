@@ -41,7 +41,7 @@ public class DefaultTransition implements Transition {
 		time += delta * speed;
 		reverse = time > delayRate + 1; // XXX
 		if(time > delayRate + 2){
-			if(nextLevel != null) GameAssets.i.playMusic(nextLevel.music);
+			if(nextLevel != null) GameAssets.i.playMusic(nextLevel.music, nextLevel.musicLevel);
 			engine.transitions.removeIndex(0);
 		}else if(!swap && time > 1){
 			swap = true;
@@ -56,11 +56,11 @@ public class DefaultTransition implements Transition {
 		if(reverse){
 			float t = MathUtils.clamp(time - delayRate - 1, 0, 1);
 			// out
-			batch.draw(texture, 0, interpolation.apply(t) * viewport.getWorldHeight(), viewport.getWorldWidth(), viewport.getWorldWidth() / (float)texture.getWidth() * (float)texture.getHeight());
+			batch.draw(texture, 0, interpolation.apply(t) * viewport.getWorldHeight(), viewport.getWorldWidth(), viewport.getWorldHeight());
 		}else{
 			float t = MathUtils.clamp(time, 0, 1);
 			// in
-			batch.draw(texture, 0, (1 - interpolation.apply(t)) * viewport.getWorldHeight(), viewport.getWorldWidth(), viewport.getWorldWidth() / (float)texture.getWidth() * (float)texture.getHeight());
+			batch.draw(texture, 0, (1 - interpolation.apply(t)) * viewport.getWorldHeight(), viewport.getWorldWidth(), viewport.getWorldHeight());
 		}
 	}
 	

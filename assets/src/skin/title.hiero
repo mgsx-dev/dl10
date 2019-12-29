@@ -16,9 +16,9 @@ pad.advance.x=-2
 pad.advance.y=-2
 
 glyph.native.rendering=false
-glyph.page.width=512
-glyph.page.height=512
-glyph.text=ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz \n
+glyph.page.width=1000
+glyph.page.height=80
+glyph.text=SANTandthegick \n
 
 render_type=2
 

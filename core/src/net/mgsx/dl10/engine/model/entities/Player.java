@@ -136,8 +136,6 @@ public class Player extends EBase {
 			if(!wasTimeout){
 				gravity = -20f * dynScale;
 				position.y += dyn.velocity.y * (jumpTimeout + delta);
-				// velocity.y = 0;
-				System.out.println(position.y);
 			}
 		}else{
 			dyn.velocity.y = force;

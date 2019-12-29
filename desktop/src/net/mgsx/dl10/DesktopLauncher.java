@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = DL10Game.WIDTH;
 		config.height = DL10Game.HEIGHT;
+		config.foregroundFPS = GameSettings.disableVsync ? 0 : 60;
 		
 		new LwjglApplication(new DL10Game(){
 			@Override

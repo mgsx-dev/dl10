@@ -27,7 +27,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 },
 
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-	default: { vScroll: default-scroll, hScrollKnob: default-round, background: default-rect, hScroll: default-scroll, vScrollKnob: default-round }
+	default: { vScroll: default-scroll, hScrollKnob: default-round, background: default-dropdown, hScroll: default-scroll, vScrollKnob: default-round }
 },
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {

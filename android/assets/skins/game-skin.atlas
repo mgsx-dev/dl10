@@ -7,13 +7,22 @@ repeat: none
 default
   rotate: false
   xy: 2, 176
-  size: 512, 512
-  orig: 512, 512
+  size: 512, 64
+  orig: 512, 64
+  offset: 0, 0
+  index: -1
+default-dropdown
+  rotate: false
+  xy: 564, 634
+  size: 14, 16
+  split: 6, 6, 8, 7
+  pad: 5, 5, 5, 5
+  orig: 14, 16
   offset: 0, 0
   index: -1
 default-rect
   rotate: false
-  xy: 564, 620
+  xy: 612, 686
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -22,16 +31,16 @@ default-rect
   index: -1
 default-round
   rotate: false
-  xy: 50, 54
-  size: 14, 16
-  split: 6, 6, 8, 7
-  pad: 5, 5, 5, 5
-  orig: 14, 16
+  xy: 516, 582
+  size: 16, 16
+  split: 7, 7, 8, 7
+  pad: 6, 6, 6, 5
+  orig: 16, 16
   offset: 0, 0
   index: -1
 default-round-disabled
   rotate: false
-  xy: 612, 672
+  xy: 657, 738
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -40,16 +49,16 @@ default-round-disabled
   index: -1
 default-round-down
   rotate: false
-  xy: 2, 2
-  size: 14, 16
-  split: 6, 6, 8, 7
-  pad: 5, 5, 5, 5
-  orig: 14, 16
+  xy: 98, 158
+  size: 16, 16
+  split: 7, 7, 8, 7
+  pad: 6, 6, 6, 5
+  orig: 16, 16
   offset: 0, 0
   index: -1
 default-scroll
   rotate: false
-  xy: 98, 106
+  xy: 2, 2
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -58,16 +67,16 @@ default-scroll
   index: -1
 default-select
   rotate: false
-  xy: 516, 516
-  size: 14, 16
-  split: 6, 6, 8, 7
-  pad: 5, 5, 5, 5
-  orig: 14, 16
+  xy: 50, 83
+  size: 39, 39
+  split: 7, 31, 16, 22
+  pad: 6, 32, 6, 5
+  orig: 39, 39
   offset: 0, 0
   index: -1
 default-select-selection
   rotate: false
-  xy: 143, 158
+  xy: 98, 140
   size: 14, 16
   split: 6, 6, 8, 7
   pad: 5, 5, 5, 5
@@ -76,91 +85,85 @@ default-select-selection
   index: -1
 gift-neutral
   rotate: false
-  xy: 2, 20
+  xy: 516, 600
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift-outline
   rotate: false
-  xy: 50, 72
+  xy: 564, 652
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift1
   rotate: false
-  xy: 2, 124
+  xy: 516, 704
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift2
   rotate: false
-  xy: 516, 638
+  xy: 2, 124
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift3
   rotate: false
-  xy: 2, 72
+  xy: 516, 652
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift4
   rotate: false
-  xy: 50, 124
+  xy: 564, 704
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift5
   rotate: false
-  xy: 516, 586
+  xy: 2, 72
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 gift6
   rotate: false
-  xy: 564, 638
+  xy: 50, 124
   size: 46, 50
   orig: 46, 50
   offset: 0, 0
   index: -1
 santa
   rotate: false
-  xy: 98, 124
+  xy: 612, 704
   size: 43, 50
   orig: 43, 50
   offset: 0, 0
   index: -1
 santa-outline
   rotate: false
-  xy: 516, 534
+  xy: 2, 20
   size: 43, 50
   orig: 43, 50
   offset: 0, 0
   index: -1
-white
-  rotate: false
-  xy: 564, 615
-  size: 3, 3
-  orig: 3, 3
-  offset: 0, 0
-  index: -1
-
-game-skin2.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 title
   rotate: false
-  xy: 2, 2
+  xy: 2, 242
   size: 512, 512
   orig: 512, 512
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 50, 78
+  size: 3, 3
+  orig: 3, 3
   offset: 0, 0
   index: -1

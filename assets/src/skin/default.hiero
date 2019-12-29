@@ -16,8 +16,8 @@ pad.advance.x=-2
 pad.advance.y=-2
 
 glyph.native.rendering=false
-glyph.page.width=512
-glyph.page.height=512
+glyph.page.width=1000
+glyph.page.height=64
 glyph.text=ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890 \n.,
 
 render_type=2

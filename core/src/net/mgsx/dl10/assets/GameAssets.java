@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -120,12 +121,15 @@ public class GameAssets {
 	}
 	
 	private Music currentMusic;
+	private float currentMusicVolume;
 	
-	public void playMusic(String name){
+	public void playMusic(String name, float volume){
 		if(currentMusic != null) currentMusic.stop();
 		currentMusic = musics.get(name);
+		currentMusicVolume = volume;
 		currentMusic.setLooping(true);
 		currentMusic.play();
+		currentMusic.setVolume(volume);
 	}
 	
 	public void stopMusic() {
@@ -134,8 +138,7 @@ public class GameAssets {
 	}
 	
 	public void playSantaJump(){
-		// playSFX("santa-o" + (MathUtils.randomBoolean() ? 1 : 3));
-		playSFX("santa-o1");
+		playSFX("santa-o" + MathUtils.random(1, 4));
 	}
 	
 	public void playSantaFall(){
@@ -147,15 +150,15 @@ public class GameAssets {
 	}
 	
 	public void playEnd(){
-		currentMusic.setVolume(.3f); // XXX for the end
+		currentMusic.setVolume(currentMusicVolume * .5f); // XXX for the end
 		playSFX("santa-mery2");
 	}
 	public void playLose(){
-		currentMusic.setVolume(.1f); // XXX for the end
+		currentMusic.setVolume(currentMusicVolume * .2f); // XXX for the end
 		playSFX("bad");
 	}
 	public void playWin(){
-		currentMusic.setVolume(.1f); // XXX for the end
+		currentMusic.setVolume(currentMusicVolume * .2f); // XXX for the end
 		playSFX("good");
 	}
 	public void playMobHurt(){

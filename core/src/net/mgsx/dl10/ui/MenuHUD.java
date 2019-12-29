@@ -24,7 +24,7 @@ public class MenuHUD extends Table {
 		a.setFontScale(.5f);
 		row();
 		
-		add().padTop(10).row();
+		add().padTop(60).row();
 		
 		TextButton btPlay = new TextButton("New Game", getSkin());
 		add(btPlay).padBottom(10).row();
